@@ -1,4 +1,4 @@
-package GreatLearning.Day5;
+package GreatLearning.Week1.Day4;
 
 public class Visitor extends User {
 

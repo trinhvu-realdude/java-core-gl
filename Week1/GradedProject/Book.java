@@ -1,4 +1,4 @@
-package GreatLearning.Week1;
+package GreatLearning.Week1.GradedProject;
 
 public class Book {
 

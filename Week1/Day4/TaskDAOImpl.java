@@ -1,12 +1,23 @@
-package GreatLearning.Day3;
+package GreatLearning.Week1.Day4;
 
 import java.util.Scanner;
 
-public class DAO {
+public class TaskDAOImpl implements TaskDAO {
+
+    private static Task[] tasks;
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void create(Task[] tasks) {
+    public TaskDAOImpl(int size) {
+        tasks = new Task[size];
+    }
+
+    public TaskDAOImpl() {
+
+    }
+
+    @Override
+    public void create() {
         int i = 0;
 
         while (i < tasks.length) {
@@ -33,7 +44,8 @@ public class DAO {
         }
     }
 
-    public static void update(Task[] tasks) {
+    @Override
+    public void update() {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before updating!");
         } else {
@@ -66,7 +78,8 @@ public class DAO {
         }
     }
 
-    public static void search(Task[] tasks) {
+    @Override
+    public void search() {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before searching!");
         } else {
@@ -92,7 +105,8 @@ public class DAO {
         }
     }
 
-    public static void delete(Task[] tasks) {
+    @Override
+    public void delete() {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before deleting!");
         } else {
@@ -120,7 +134,8 @@ public class DAO {
         }
     }
 
-    public static void display(Task[] tasks) {
+    @Override
+    public void display() {
         if (isEmpty(tasks)) {
             System.out.println("List of tasks is empty!");
         } else {
@@ -144,6 +159,27 @@ public class DAO {
         }
     }
 
+    public void displayAssignedTo(String name) {
+        if (isEmpty(tasks)) {
+            System.out.println("List of tasks is empty!");
+        } else {
+            int count = 0;
+            for (Task task : tasks) {
+                if (task.getAssignTo().equals(name)) {
+                    System.out.println("Task [" + task.getId()
+                            + "], title: " + task.getTitle()
+                            + ", text: " + task.getText()
+                            + ", assigned to: " + task.getAssignTo());
+                    count++;
+                }
+            }
+
+            if (count == 0) {
+                System.out.println("List of tasks assigned to you is empty!");
+            }
+        }
+    }
+
     public static boolean isEmpty(Task[] tasks) {
         int check = 0;
 
@@ -153,7 +189,6 @@ public class DAO {
             }
             check++;
         }
-
         return check == 0;
     }
 }

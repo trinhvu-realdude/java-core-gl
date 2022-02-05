@@ -1,4 +1,4 @@
-package GreatLearning.Day4;
+package GreatLearning.Week1.Day4;
 
 public class Task {
     private int id;

@@ -1,4 +1,4 @@
-package GreatLearning.Day4;
+package GreatLearning.Week1.Day5;
 
 import java.util.Scanner;
 
@@ -50,12 +50,11 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println("Please create a task before updating!");
         } else {
             System.out.print("Which task do you want to update? (Press task id) ");
-            String input = sc.nextLine();
-            int id = Integer.parseInt(input);
 
-            if (id <= tasks.length) {
-                int index = id - 1;
+            int id = Integer.parseInt(sc.nextLine());
+            int index = id - 1;
 
+            if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted")) {
                 System.out.println("Task [" + id + "]");
 
                 System.out.println("Enter the new task " + id + " title (" + tasks[index].getTitle() + "):");
@@ -73,7 +72,7 @@ public class TaskDAOImpl implements TaskDAO {
 
                 System.out.println("Update successfully!");
             } else {
-                System.out.println("No task found");
+                System.out.println("Task id " + id + " not found!");
             }
         }
     }
@@ -90,11 +89,13 @@ public class TaskDAOImpl implements TaskDAO {
             boolean checkSearch = false;
             while (i < tasks.length) {
                 if (tasks[i].getTitle().equals(title)) {
-                    System.out.println("Task [" + tasks[i].getId()
-                            + "], title: " + tasks[i].getTitle()
-                            + ", text: " + tasks[i].getText()
-                            + ", assigned to: " + tasks[i].getAssignTo());
-                    checkSearch = true;
+                    if (!title.equals("Deleted")) {
+                        System.out.println("Task [" + tasks[i].getId()
+                                + "], title: " + tasks[i].getTitle()
+                                + ", text: " + tasks[i].getText()
+                                + ", assigned to: " + tasks[i].getAssignTo());
+                        checkSearch = true;
+                    }
                 }
                 i++;
             }
@@ -111,25 +112,25 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println("Please create a task before deleting!");
         } else {
             System.out.println("Enter the task id you want to delete: ");
-            int number = sc.nextInt();
+            int number = Integer.parseInt(sc.nextLine());
 
-            System.out.println("Task [" + tasks[number - 1].getId()
-                    + "], title: " + tasks[number - 1].getTitle()
-                    + ", text: " + tasks[number - 1].getText()
-                    + ", assigned to: " + tasks[number - 1].getAssignTo());
+            if (number <= tasks.length && !tasks[number - 1].getTitle().equals("Deleted")) {
+                System.out.println("Task [" + tasks[number - 1].getId()
+                        + "], title: " + tasks[number - 1].getTitle()
+                        + ", text: " + tasks[number - 1].getText()
+                        + ", assigned to: " + tasks[number - 1].getAssignTo());
 
-            System.out.print("Are you sure to delete task [" + number + "]? (y/n) ");
-            String sure = sc.next();
+                System.out.print("Are you sure to delete task [" + number + "]? (y/n) ");
+                String sure = sc.nextLine();
 
-            if (sure.equals("y")) {
-                if (number <= tasks.length) {
+                if (sure.equals("y")) {
                     tasks[number - 1].setTitle("Deleted");
                     tasks[number - 1].setText("Deleted");
                     tasks[number - 1].setAssignTo("Deleted");
                     System.out.println("Delete successfully!");
-                } else {
-                    System.out.println("No task found!");
                 }
+            } else {
+                System.out.println("No task found!");
             }
         }
     }
@@ -181,14 +182,19 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     public static boolean isEmpty(Task[] tasks) {
-        int check = 0;
+        int checkEmpty = 0;
+        int checkDeleted = 0;
 
-        while (check < tasks.length) {
-            if (tasks[check] == null) {
+        while (checkEmpty < tasks.length) {
+            if (tasks[checkEmpty].getTitle().equals("Deleted")) {
+                checkDeleted++;
+            }
+            if (tasks[checkEmpty] == null) {
                 break;
             }
-            check++;
+            checkEmpty++;
         }
-        return check == 0;
+
+        return checkEmpty == 0 || checkDeleted == tasks.length;
     }
 }

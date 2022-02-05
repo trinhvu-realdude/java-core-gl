@@ -1,4 +1,4 @@
-package GreatLearning.Day4;
+package GreatLearning.Week1.Day5;
 
 import java.util.Scanner;
 
