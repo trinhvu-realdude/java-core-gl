@@ -111,6 +111,7 @@ public class Main {
             System.out.println("3. Press 3 to search tasks");
             System.out.println("4. Press 4 to delete a task");
             System.out.println("5. Press 5 to display all task");
+            System.out.println("6. Press 6 to arrange list of tasks in any order (increasing or decreasing)");
             System.out.println("0. Press 0 to logout");
 
             int option = sc.nextInt();
@@ -152,6 +153,12 @@ public class Main {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                case 6 -> {
+                    System.out.println("-- ARRANGE TASK --");
+                    taskDAO.arrange();
+                    System.out.println("-- *-*-*-*-* --");
+                }
+
                 // Logout
                 case 0 -> {
                     isStop = true;
@@ -189,7 +196,7 @@ public class Main {
                 // Logout
                 case 0 -> {
                     isStop = true;
-                    System.out.println("Goodbye, see you later!");
+                    System.out.println("Logout successfully!");
                 }
 
                 default -> System.out.println("Invalid option!");

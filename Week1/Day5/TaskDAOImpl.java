@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TaskDAOImpl implements TaskDAO {
 
-    private static Task[] tasks;
+    static Task[] tasks;
 
     private static final Scanner sc = new Scanner(System.in);
 
@@ -34,10 +34,19 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println("Enter the task " + (i + 1) + " assigned to:");
             String assignTo = sc.nextLine();
 
-            task.setId(i + 1);
-            task.setTitle(title);
-            task.setText(text);
-            task.setAssignTo(assignTo);
+            System.out.println("Enter the completion date to the task " + (i + 1) + " (dd-mm-yy):");
+            String completeDate = sc.nextLine();
+
+            if (isValid(completeDate)) {
+                task.setId(i + 1);
+                task.setTitle(title);
+                task.setText(text);
+                task.setAssignTo(assignTo);
+                task.setCompleteDate(completeDate);
+            } else {
+                System.out.println("Wrong format of date! Please try again!");
+                break;
+            }
 
             tasks[i] = task;
             i++;
@@ -148,9 +157,10 @@ public class TaskDAOImpl implements TaskDAO {
                         continue;
                     }
                     System.out.println("Task [" + task.getId()
-                            + "], title: " + task.getTitle()
-                            + ", text: " + task.getText()
-                            + ", assigned to: " + task.getAssignTo());
+                            + "] (" + task.getCompleteDate() + ")"
+                            + ": " + task.getTitle()
+                            + " - " + task.getText()
+                            + " (assigned to: " + task.getAssignTo() + ")");
                 }
             }
 
@@ -158,6 +168,11 @@ public class TaskDAOImpl implements TaskDAO {
                 System.out.println("List of tasks is empty!");
             }
         }
+    }
+
+    @Override
+    public void arrange() {
+
     }
 
     public void displayAssignedTo(String name) {
@@ -196,5 +211,18 @@ public class TaskDAOImpl implements TaskDAO {
         }
 
         return checkEmpty == 0 || checkDeleted == tasks.length;
+    }
+
+    public boolean isValid(String completeDate) {
+        String[] date = completeDate.split("-", 3);
+
+        if (date.length == 3) {
+            int d = Integer.parseInt(date[0]);
+            int m = Integer.parseInt(date[1]);
+            int y = Integer.parseInt(date[2]);
+
+            return (d > 0 && d <= 31) && (m > 0 && m <= 12) && (y > 2000);
+        }
+        return false;
     }
 }

@@ -5,6 +5,7 @@ public class Task {
     private String title;
     private String text;
     private String assignTo;
+    private String completeDate;
 
     public Task() {
 
@@ -40,5 +41,13 @@ public class Task {
 
     public void setAssignTo(String assignTo) {
         this.assignTo = assignTo;
+    }
+
+    public String getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(String completeDate) {
+        this.completeDate = completeDate;
     }
 }
