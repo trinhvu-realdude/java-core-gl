@@ -160,7 +160,7 @@ public class TaskDAOImpl implements TaskDAO {
                             + "] (" + task.getCompleteDate() + ")"
                             + ": " + task.getTitle()
                             + " - " + task.getText()
-                            + " (assigned to: " + task.getAssignTo() + ")");
+                            + " - status: " + task.getStatus() + " (assigned to: " + task.getAssignTo() + ")");
                 }
             }
 
@@ -170,22 +170,22 @@ public class TaskDAOImpl implements TaskDAO {
         }
     }
 
-    @Override
     public void arrange() {
 
     }
 
     public void displayAssignedTo(String name) {
         if (isEmpty(tasks)) {
-            System.out.println("List of tasks is empty!");
+            System.out.println("You don't have any tasks to do!");
         } else {
             int count = 0;
             for (Task task : tasks) {
                 if (task.getAssignTo().equals(name)) {
                     System.out.println("Task [" + task.getId()
-                            + "], title: " + task.getTitle()
-                            + ", text: " + task.getText()
-                            + ", assigned to: " + task.getAssignTo());
+                            + "] (" + task.getCompleteDate() + ")"
+                            + ": " + task.getTitle()
+                            + " - " + task.getText()
+                            + " - status: " + task.getStatus());
                     count++;
                 }
             }
@@ -196,7 +196,60 @@ public class TaskDAOImpl implements TaskDAO {
         }
     }
 
-    public static boolean isEmpty(Task[] tasks) {
+    public void changeStatus(String name) {
+        if (isEmpty(tasks)) {
+            System.out.println("You don't have any tasks to do!");
+        } else {
+            System.out.println("Which task do you want to change status? (Press task id) ");
+
+            int id = Integer.parseInt(sc.nextLine());
+            int index = id - 1;
+
+            if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted") && tasks[index].getAssignTo().equals(name)) {
+                if (tasks[index].getStatus().equals("Incomplete")) {
+                    System.out.println("Task [" + id + "] (" + tasks[index].getCompleteDate() + ")"
+                            + ": " + tasks[index].getTitle()
+                            + " - " + tasks[index].getText());
+
+                    System.out.print("Have you completed the task " + id + "? (y/n) ");
+                    String option = sc.nextLine();
+
+                    if (option.equals("y")) {
+                        tasks[index].setStatus("Completed");
+                        System.out.println("Great job! Keep your momentum!");
+                    }
+                } else {
+                    System.out.println("You already have completed this task! Good job!");
+                }
+            } else {
+                System.out.println("Task id " + id + " not found!");
+            }
+        }
+    }
+
+    public void displayTaskByStatus(String name, String status) {
+        if (isEmpty(tasks)) {
+            System.out.println("You don't have any tasks to do!");
+        } else {
+            int count = 0;
+            for (Task task : tasks) {
+                if (task.getAssignTo().equals(name) && task.getStatus().equals(status)) {
+                    System.out.println("Task [" + task.getId()
+                            + "] (" + task.getCompleteDate() + ")"
+                            + ": " + task.getTitle()
+                            + " - " + task.getText()
+                            + " - status: " + task.getStatus());
+                    count++;
+                }
+            }
+
+            if (count == 0) {
+                System.out.println("List of tasks is empty!");
+            }
+        }
+    }
+
+    public boolean isEmpty(Task[] tasks) {
         int checkEmpty = 0;
         int checkDeleted = 0;
 
@@ -225,4 +278,5 @@ public class TaskDAOImpl implements TaskDAO {
         }
         return false;
     }
+
 }

@@ -6,6 +6,7 @@ public class Task {
     private String text;
     private String assignTo;
     private String completeDate;
+    private String status = "Incomplete";
 
     public Task() {
 
@@ -49,5 +50,13 @@ public class Task {
 
     public void setCompleteDate(String completeDate) {
         this.completeDate = completeDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

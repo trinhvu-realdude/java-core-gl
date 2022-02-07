@@ -11,6 +11,4 @@ public interface TaskDAO {
     void delete();
 
     void display();
-
-    void arrange();
 }

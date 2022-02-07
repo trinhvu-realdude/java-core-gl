@@ -97,6 +97,7 @@ public class Main {
 
     public static void menuClient() {
         Scanner sc = new Scanner(System.in);
+
         System.out.println("How many tasks you would like to add?");
         int size = sc.nextInt();
 
@@ -111,7 +112,7 @@ public class Main {
             System.out.println("3. Press 3 to search tasks");
             System.out.println("4. Press 4 to delete a task");
             System.out.println("5. Press 5 to display all task");
-            System.out.println("6. Press 6 to arrange list of tasks in any order (increasing or decreasing)");
+            System.out.println("6. Press 6 to arrange list of tasks in any order");
             System.out.println("0. Press 0 to logout");
 
             int option = sc.nextInt();
@@ -180,16 +181,40 @@ public class Main {
         while (!isStop) {
             System.out.println("Please choose one option!");
             System.out.println("1. Press 1 to display all tasks assigned to you");
+            System.out.println("2. Press 2 to change the status of a task");
+            System.out.println("3. Press 3 to display the completed tasks");
+            System.out.println("4. Press 4 to display the incomplete tasks");
             System.out.println("0. Press 0 to logout");
 
             int option = sc.nextInt();
 
             switch (option) {
 
-                // Display task
+                // Display all tasks assigned to visitor
                 case 1 -> {
                     System.out.println("-- DISPLAY TASK --");
                     taskDAO.displayAssignedTo(name);
+                    System.out.println("-- *-*-*-*-* --");
+                }
+
+                // Change status
+                case 2 -> {
+                    System.out.println("-- CHANGE STATUS OF TASK --");
+                    taskDAO.changeStatus(name);
+                    System.out.println("-- *-*-*-*-* --");
+                }
+
+                // Display completed tasks
+                case 3 -> {
+                    System.out.println("-- COMPLETED TASKS --");
+                    taskDAO.displayTaskByStatus(name, "Completed");
+                    System.out.println("-- *-*-*-*-* --");
+                }
+
+                // Display incomplete tasks
+                case 4 -> {
+                    System.out.println("-- INCOMPLETE TASKS --");
+                    taskDAO.displayTaskByStatus(name, "Incomplete");
                     System.out.println("-- *-*-*-*-* --");
                 }
 
