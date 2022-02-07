@@ -170,8 +170,97 @@ public class TaskDAOImpl implements TaskDAO {
         }
     }
 
-    public void arrange() {
+    public void displayArrangeTask(Task[] list) {
+        if (isEmpty(list)) {
+            System.out.println("List of tasks is empty!");
+        } else {
+            int count = 0;
+            for (Task task : list) {
+                if (task != null) {
+                    if (task.getTitle().equals("Deleted")) {
+                        count++;
+                        continue;
+                    }
+                    System.out.println("Task [" + task.getId()
+                            + "] (" + task.getCompleteDate() + ")"
+                            + ": " + task.getTitle()
+                            + " - " + task.getText()
+                            + " - status: " + task.getStatus() + " (assigned to: " + task.getAssignTo() + ")");
+                }
+            }
 
+            if (count == list.length) {
+                System.out.println("List of tasks is empty!");
+            }
+        }
+    }
+
+    public void arrange() {
+        if (isEmpty(tasks)) {
+            System.out.println("List of tasks is empty!");
+        } else {
+            Task[] cloneTask = tasks;
+
+            System.out.print("Increasing or decreasing date? (i/d) ");
+            String option = sc.nextLine();
+
+            switch (option) {
+
+                case "i" -> {
+                    for (int i = 0; i < cloneTask.length; i++) {
+                        int min = i;
+                        for (int j = i + 1; j < cloneTask.length; j++) {
+                            if (Integer.parseInt(cloneTask[min].getCompleteDate().split("-", 3)[2]) > Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[2])) {
+                                min = j;
+                            }
+                            if (Integer.parseInt(cloneTask[min].getCompleteDate().split("-", 3)[2]) == Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[2])) {
+                                if (Integer.parseInt(cloneTask[min].getCompleteDate().split("-", 3)[1]) > Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[1])) {
+                                    min = j;
+                                }
+                                if (Integer.parseInt(cloneTask[min].getCompleteDate().split("-", 3)[1]) == Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[1])) {
+                                    if (Integer.parseInt(cloneTask[min].getCompleteDate().split("-", 3)[0]) > Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[0])) {
+                                        min = j;
+                                    }
+                                }
+                            }
+                        }
+                        Task temp = cloneTask[min];
+                        cloneTask[min] = cloneTask[i];
+                        cloneTask[i] = temp;
+                    }
+
+                    displayArrangeTask(cloneTask);
+                }
+
+                case "d" -> {
+                    for (int i = 0; i < cloneTask.length; i++) {
+                        int max = i;
+                        for (int j = i + 1; j < cloneTask.length; j++) {
+                            if (Integer.parseInt(cloneTask[max].getCompleteDate().split("-", 3)[2]) < Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[2])) {
+                                max = j;
+                            }
+                            if (Integer.parseInt(cloneTask[max].getCompleteDate().split("-", 3)[2]) == Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[2])) {
+                                if (Integer.parseInt(cloneTask[max].getCompleteDate().split("-", 3)[1]) < Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[1])) {
+                                    max = j;
+                                }
+                                if (Integer.parseInt(cloneTask[max].getCompleteDate().split("-", 3)[1]) == Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[1])) {
+                                    if (Integer.parseInt(cloneTask[max].getCompleteDate().split("-", 3)[0]) < Integer.parseInt(cloneTask[j].getCompleteDate().split("-", 3)[0])) {
+                                        max = j;
+                                    }
+                                }
+                            }
+                        }
+                        Task temp = cloneTask[max];
+                        cloneTask[max] = cloneTask[i];
+                        cloneTask[i] = temp;
+                    }
+
+                    displayArrangeTask(cloneTask);
+                }
+
+                default -> System.out.println("Please try again!");
+            }
+        }
     }
 
     public void displayAssignedTo(String name) {
