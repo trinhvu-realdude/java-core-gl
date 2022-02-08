@@ -1,10 +1,10 @@
-package GreatLearning.Week1.Day5;
+package GreatLearning.Week2.Day1;
 
 import java.util.Scanner;
 
 public class TaskDAOImpl implements TaskDAO {
 
-    static Task[] tasks;
+    private static Task[] tasks = new Task[0];
 
     private static final Scanner sc = new Scanner(System.in);
 
@@ -199,7 +199,9 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(tasks)) {
             System.out.println("List of tasks is empty!");
         } else {
-            Task[] cloneTask = tasks;
+            Task[] cloneTask = new Task[tasks.length];
+
+            System.arraycopy(tasks, 0, cloneTask, 0, cloneTask.length);
 
             System.out.print("Increasing or decreasing date? (i/d) ");
             String option = sc.nextLine();
@@ -351,13 +353,13 @@ public class TaskDAOImpl implements TaskDAO {
 
         int i = 0;
 
-        if (checkEmpty != 0) {
-            while (i < tasks.length) {
+        while (i < tasks.length) {
+            if (checkEmpty != 0) {
                 if (tasks[i].getTitle().equals("Deleted")) {
                     checkDeleted++;
                 }
-                i++;
             }
+            i++;
         }
 
         return checkEmpty == 0 || checkDeleted == tasks.length;
@@ -376,4 +378,10 @@ public class TaskDAOImpl implements TaskDAO {
         return false;
     }
 
+    public int getLength() {
+        if (tasks.length == 0) {
+            return 0;
+        }
+        return tasks.length;
+    }
 }

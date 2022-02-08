@@ -181,14 +181,27 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     public static boolean isEmpty(Task[] tasks) {
-        int check = 0;
+        int checkEmpty = 0;
+        int checkDeleted = 0;
 
-        while (check < tasks.length) {
-            if (tasks[check] == null) {
+        while (checkEmpty < tasks.length) {
+            if (tasks[checkEmpty] == null) {
                 break;
             }
-            check++;
+            checkEmpty++;
         }
-        return check == 0;
+
+        int i = 0;
+
+        if (checkEmpty != 0) {
+            while (i < tasks.length) {
+                if (tasks[i].getTitle().equals("Deleted")) {
+                    checkDeleted++;
+                }
+                i++;
+            }
+        }
+
+        return checkEmpty == 0 || checkDeleted == tasks.length;
     }
 }
