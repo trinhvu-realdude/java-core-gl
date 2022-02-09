@@ -1,4 +1,6 @@
-package GreatLearning.Week2.Day1;
+package GreatLearning.Week2.Day2;
+
+import GreatLearning.Week2.Day2.Exception.NegativeInputException;
 
 import java.util.Scanner;
 
@@ -26,16 +28,16 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println("Task [" + (i + 1) + "]");
 
             System.out.println("Enter the task " + (i + 1) + " title:");
-            String title = sc.nextLine();
+            String title = sc.nextLine().trim();
 
             System.out.println("Enter the task " + (i + 1) + " text:");
-            String text = sc.nextLine();
+            String text = sc.nextLine().trim();
 
             System.out.println("Enter the task " + (i + 1) + " assigned to:");
-            String assignTo = sc.nextLine();
+            String assignTo = sc.nextLine().trim();
 
             System.out.println("Enter the completion date to the task " + (i + 1) + " (dd-mm-yy):");
-            String completeDate = sc.nextLine();
+            String completeDate = sc.nextLine().trim();
 
             if (isValid(completeDate)) {
                 task.setId(i + 1);
@@ -58,30 +60,42 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before updating!");
         } else {
-            System.out.print("Which task do you want to update? (Press task id) ");
+            try {
+                System.out.print("Which task do you want to update? (Press task id) ");
 
-            int id = Integer.parseInt(sc.nextLine());
-            int index = id - 1;
+                int id = Integer.parseInt(sc.nextLine().trim());
+                int index = id - 1;
 
-            if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted")) {
-                System.out.println("Task [" + id + "]");
+                if (id <= 0) {
+                    throw new NegativeInputException();
+                }
 
-                System.out.println("Enter the new task " + id + " title (" + tasks[index].getTitle() + "):");
-                String title = sc.nextLine();
+                if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted")) {
+                    System.out.println("Task [" + id + "]");
 
-                System.out.println("Enter the new task " + id + " text (" + tasks[index].getText() + "):");
-                String text = sc.nextLine();
+                    System.out.println("Enter the new task " + id + " title (" + tasks[index].getTitle() + "):");
+                    String title = sc.nextLine().trim();
 
-                System.out.println("Enter the new task " + id + " assigned to (" + tasks[index].getAssignTo() + "):");
-                String assignTo = sc.nextLine();
+                    System.out.println("Enter the new task " + id + " text (" + tasks[index].getText() + "):");
+                    String text = sc.nextLine().trim();
 
-                tasks[index].setTitle(title);
-                tasks[index].setText(text);
-                tasks[index].setAssignTo(assignTo);
+                    System.out.println("Enter the new task " + id + " assigned to (" + tasks[index].getAssignTo() + "):");
+                    String assignTo = sc.nextLine().trim();
 
-                System.out.println("Update successfully!");
-            } else {
-                System.out.println("Task id " + id + " not found!");
+                    tasks[index].setTitle(title);
+                    tasks[index].setText(text);
+                    tasks[index].setAssignTo(assignTo);
+
+                    System.out.println("Update successfully!");
+                } else {
+                    System.out.println("Task id " + id + " not found!");
+                }
+            } catch (NegativeInputException | NumberFormatException e) {
+                if (e instanceof NegativeInputException) {
+                    System.err.println("Negative input exception!");
+                } else {
+                    System.err.println("Number format exception!");
+                }
             }
         }
     }
@@ -92,7 +106,7 @@ public class TaskDAOImpl implements TaskDAO {
             System.out.println("Please create a task before searching!");
         } else {
             System.out.println("Enter the task title you want to search: ");
-            String title = sc.nextLine();
+            String title = sc.nextLine().trim();
 
             int i = 0;
             boolean checkSearch = false;
@@ -120,26 +134,38 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before deleting!");
         } else {
-            System.out.println("Enter the task id you want to delete: ");
-            int number = Integer.parseInt(sc.nextLine());
+            try {
+                System.out.println("Enter the task id you want to delete: ");
+                int number = Integer.parseInt(sc.nextLine().trim());
 
-            if (number <= tasks.length && !tasks[number - 1].getTitle().equals("Deleted")) {
-                System.out.println("Task [" + tasks[number - 1].getId()
-                        + "], title: " + tasks[number - 1].getTitle()
-                        + ", text: " + tasks[number - 1].getText()
-                        + ", assigned to: " + tasks[number - 1].getAssignTo());
-
-                System.out.print("Are you sure to delete task [" + number + "]? (y/n) ");
-                String sure = sc.nextLine();
-
-                if (sure.equals("y")) {
-                    tasks[number - 1].setTitle("Deleted");
-                    tasks[number - 1].setText("Deleted");
-                    tasks[number - 1].setAssignTo("Deleted");
-                    System.out.println("Delete successfully!");
+                if (number <= 0) {
+                    throw new NegativeInputException();
                 }
-            } else {
-                System.out.println("No task found!");
+
+                if (number <= tasks.length && !tasks[number - 1].getTitle().equals("Deleted")) {
+                    System.out.println("Task [" + tasks[number - 1].getId()
+                            + "], title: " + tasks[number - 1].getTitle()
+                            + ", text: " + tasks[number - 1].getText()
+                            + ", assigned to: " + tasks[number - 1].getAssignTo());
+
+                    System.out.print("Are you sure to delete task [" + number + "]? (y/n) ");
+                    String sure = sc.nextLine().trim();
+
+                    if (sure.equals("y")) {
+                        tasks[number - 1].setTitle("Deleted");
+                        tasks[number - 1].setText("Deleted");
+                        tasks[number - 1].setAssignTo("Deleted");
+                        System.out.println("Delete successfully!");
+                    }
+                } else {
+                    System.out.println("No task found!");
+                }
+            } catch (NegativeInputException | NumberFormatException e) {
+                if (e instanceof NegativeInputException) {
+                    System.err.println("Negative input exception!");
+                } else {
+                    System.err.println("Number format exception!");
+                }
             }
         }
     }
@@ -204,7 +230,7 @@ public class TaskDAOImpl implements TaskDAO {
             System.arraycopy(tasks, 0, cloneTask, 0, cloneTask.length);
 
             System.out.print("Increasing or decreasing date? (i/d) ");
-            String option = sc.nextLine();
+            String option = sc.nextLine().trim();
 
             switch (option) {
 
@@ -291,29 +317,41 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(tasks)) {
             System.out.println("You don't have any tasks to do!");
         } else {
-            System.out.println("Which task do you want to change status? (Press task id) ");
+            try {
+                System.out.println("Which task do you want to change status? (Press task id) ");
 
-            int id = Integer.parseInt(sc.nextLine());
-            int index = id - 1;
+                int id = Integer.parseInt(sc.nextLine().trim());
+                int index = id - 1;
 
-            if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted") && tasks[index].getAssignTo().equals(name)) {
-                if (tasks[index].getStatus().equals("Incomplete")) {
-                    System.out.println("Task [" + id + "] (" + tasks[index].getCompleteDate() + ")"
-                            + ": " + tasks[index].getTitle()
-                            + " - " + tasks[index].getText());
+                if (id <= 0) {
+                    throw new NegativeInputException();
+                }
 
-                    System.out.print("Have you completed the task " + id + "? (y/n) ");
-                    String option = sc.nextLine();
+                if (id <= tasks.length && !tasks[index].getTitle().equals("Deleted") && tasks[index].getAssignTo().equals(name)) {
+                    if (tasks[index].getStatus().equals("Incomplete")) {
+                        System.out.println("Task [" + id + "] (" + tasks[index].getCompleteDate() + ")"
+                                + ": " + tasks[index].getTitle()
+                                + " - " + tasks[index].getText());
 
-                    if (option.equals("y")) {
-                        tasks[index].setStatus("Completed");
-                        System.out.println("Great job! Keep your momentum!");
+                        System.out.print("Have you completed the task " + id + "? (y/n) ");
+                        String option = sc.nextLine().trim();
+
+                        if (option.equals("y")) {
+                            tasks[index].setStatus("Completed");
+                            System.out.println("Great job! Keep your momentum!");
+                        }
+                    } else {
+                        System.out.println("You already have completed this task! Good job!");
                     }
                 } else {
-                    System.out.println("You already have completed this task! Good job!");
+                    System.out.println("Task id " + id + " not found!");
                 }
-            } else {
-                System.out.println("Task id " + id + " not found!");
+            } catch (NegativeInputException | NumberFormatException e) {
+                if (e instanceof NegativeInputException) {
+                    System.err.println("Negative input exception!");
+                } else {
+                    System.err.println("Number format exception!");
+                }
             }
         }
     }

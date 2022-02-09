@@ -1,4 +1,4 @@
-package GreatLearning.Week2.Day1;
+package GreatLearning.Week2.Day2;
 
 import java.util.Scanner;
 
@@ -18,13 +18,13 @@ public class UserDAOImpl implements UserDAO {
     public void register(User user) {
         if (user instanceof Client) {
             System.out.println("Enter your name: ");
-            String name = sc.nextLine();
+            String name = sc.nextLine().trim();
 
             System.out.println("Enter your username: ");
-            String userName = sc.nextLine();
+            String userName = sc.nextLine().trim();
 
             System.out.println("Enter your password: ");
-            String password = sc.nextLine();
+            String password = sc.nextLine().trim();
 
             user.setName(name);
             user.setUserName(userName);
@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
 
         if (user instanceof Visitor) {
             System.out.println("Enter your name: ");
-            String name = sc.nextLine();
+            String name = sc.nextLine().trim();
 
             user.setName(name);
 
@@ -52,10 +52,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public int login() {
         System.out.println("Username: ");
-        String userName = sc.nextLine();
+        String userName = sc.nextLine().trim();
 
         System.out.println("Password: ");
-        String password = sc.nextLine();
+        String password = sc.nextLine().trim();
 
         for (Client client : clients) {
             if (client == null) {
