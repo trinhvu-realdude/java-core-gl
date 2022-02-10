@@ -9,7 +9,7 @@ public class LogImpl implements ILog {
     private LocalDateTime dateTime;
     private BufferedWriter bufferedWriter;
 
-    public LogImpl()   {
+    public LogImpl() {
         try {
             this.dateTime = LocalDateTime.now();
 
@@ -17,7 +17,7 @@ public class LogImpl implements ILog {
 
             File file = new File(url);
 
-            FileWriter writer = new FileWriter(String.valueOf(file), true);
+            FileWriter writer = new FileWriter(file, true);
 
             this.bufferedWriter = new BufferedWriter(writer);
         } catch (IOException e) {
@@ -28,7 +28,7 @@ public class LogImpl implements ILog {
     @Override
     public void saveRegisterLog(String user, String role) {
         try {
-            this.bufferedWriter.write(this.dateTime + ": [" + role + " registration] - " + user + " register successfully \n");
+            this.bufferedWriter.write(this.dateTime + ": [" + role + " registration] - " + role + " " + user + " register successfully \n");
             this.bufferedWriter.flush();
         } catch (IOException e) {
             System.err.println("Input/output exception!");
@@ -38,7 +38,7 @@ public class LogImpl implements ILog {
     @Override
     public void saveLoginLog(String user, String role) {
         try {
-            this.bufferedWriter.write(this.dateTime + ": [" + role + " login] - " + user + " login successfully \n");
+            this.bufferedWriter.write(this.dateTime + ": [" + role + " login] - " + role + " " + user + " login successfully \n");
             this.bufferedWriter.flush();
         } catch (IOException e) {
             System.err.println("Input/output exception!");
@@ -48,7 +48,7 @@ public class LogImpl implements ILog {
     @Override
     public void saveLogoutLog(String user, String role) {
         try {
-            this.bufferedWriter.write(this.dateTime + ": [" + role + " logout] - " + user + " logout \n");
+            this.bufferedWriter.write(this.dateTime + ": [" + role + " logout] - " + role + " " + user + " logout \n");
             this.bufferedWriter.flush();
         } catch (IOException e) {
             System.err.println("Input/output exception!");
