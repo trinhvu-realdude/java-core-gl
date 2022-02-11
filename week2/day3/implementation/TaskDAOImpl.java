@@ -13,7 +13,7 @@ public class TaskDAOImpl implements TaskDAO {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    LogImpl taskLog = new LogImpl();
+    UserLogImpl userLog = new UserLogImpl();
 
     public TaskDAOImpl(int size) {
         tasks.setSize(size);
@@ -24,7 +24,7 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public void create() {
+    public void create(String userName) {
         int i = 0;
 
         while (i < tasks.size()) {
@@ -50,7 +50,10 @@ public class TaskDAOImpl implements TaskDAO {
                 task.setText(text);
                 task.setAssignTo(assignTo);
                 task.setCompleteDate(completeDate);
+
+                userLog.saveCreateTaskLog(userName, title);
             } else {
+                userLog.saveErrorLog("Wrong format of date");
                 System.out.println("Wrong format of date! Please try again!");
                 break;
             }
@@ -61,7 +64,7 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public void update() {
+    public void update(String userName) {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before updating!");
         } else {
@@ -92,10 +95,14 @@ public class TaskDAOImpl implements TaskDAO {
                     tasks.get(index).setAssignTo(assignTo);
 
                     System.out.println("Update successfully!");
+
+                    userLog.saveUpdateTaskLog(userName, id);
                 } else {
+                    userLog.saveErrorLog("Task not found");
                     System.out.println("Task id " + id + " not found!");
                 }
             } catch (NegativeInputException | NumberFormatException e) {
+                userLog.saveErrorLog("Invalid input");
                 if (e instanceof NegativeInputException) {
                     System.err.println("Negative input exception!");
                 } else {
@@ -106,7 +113,7 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public void search() {
+    public void search(String userName) {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before searching!");
         } else {
@@ -129,43 +136,50 @@ public class TaskDAOImpl implements TaskDAO {
             }
 
             if (!checkSearch) {
+                userLog.saveErrorLog("Task not found");
                 System.out.println("Task " + title + " does not exist!");
+            } else {
+                userLog.saveSearchTaskLog(userName, title);
             }
         }
     }
 
     @Override
-    public void delete() {
+    public void delete(String userName) {
         if (isEmpty(tasks)) {
             System.out.println("Please create a task before deleting!");
         } else {
             try {
                 System.out.println("Enter the task id you want to delete: ");
-                int number = Integer.parseInt(sc.nextLine().trim());
+                int id = Integer.parseInt(sc.nextLine().trim());
 
-                if (number <= 0) {
+                if (id <= 0) {
                     throw new NegativeInputException();
                 }
 
-                if (number <= tasks.size() && !tasks.get(number - 1).getTitle().equals("Deleted")) {
-                    System.out.println("Task [" + tasks.get(number - 1).getId()
-                            + "], title: " + tasks.get(number - 1).getTitle()
-                            + ", text: " + tasks.get(number - 1).getText()
-                            + ", assigned to: " + tasks.get(number - 1).getAssignTo());
+                if (id <= tasks.size() && !tasks.get(id - 1).getTitle().equals("Deleted")) {
+                    System.out.println("Task [" + tasks.get(id - 1).getId()
+                            + "], title: " + tasks.get(id - 1).getTitle()
+                            + ", text: " + tasks.get(id - 1).getText()
+                            + ", assigned to: " + tasks.get(id - 1).getAssignTo());
 
-                    System.out.print("Are you sure to delete task [" + number + "]? (y/n) ");
+                    System.out.print("Are you sure to delete task [" + id + "]? (y/n) ");
                     String sure = sc.nextLine().trim();
 
                     if (sure.equals("y")) {
-                        tasks.get(number - 1).setTitle("Deleted");
-                        tasks.get(number - 1).setText("Deleted");
-                        tasks.get(number - 1).setAssignTo("Deleted");
+                        tasks.get(id - 1).setTitle("Deleted");
+                        tasks.get(id - 1).setText("Deleted");
+                        tasks.get(id - 1).setAssignTo("Deleted");
                         System.out.println("Delete successfully!");
+
+                        userLog.saveDeleteTaskLog(userName, id);
                     }
                 } else {
+                    userLog.saveErrorLog("Task not found");
                     System.out.println("No task found!");
                 }
             } catch (NegativeInputException | NumberFormatException e) {
+                userLog.saveErrorLog("Invalid input");
                 if (e instanceof NegativeInputException) {
                     System.err.println("Negative input exception!");
                 } else {
@@ -176,7 +190,7 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public void display() {
+    public void display(String userName) {
         if (isEmpty(tasks)) {
             System.out.println("List of tasks is empty!");
         } else {
@@ -226,7 +240,7 @@ public class TaskDAOImpl implements TaskDAO {
         }
     }
 
-    public void arrange() {
+    public void arrange(String userName) {
         if (isEmpty(tasks)) {
             System.out.println("List of tasks is empty!");
         } else {
@@ -262,6 +276,8 @@ public class TaskDAOImpl implements TaskDAO {
                         cloneTask.set(i, temp);
                     }
 
+                    userLog.saveArrangeTaskLog(userName, "increasing");
+
                     displayArrangeTask(cloneTask);
                 }
 
@@ -287,6 +303,8 @@ public class TaskDAOImpl implements TaskDAO {
                         cloneTask.set(max, cloneTask.get(i));
                         cloneTask.set(i, temp);
                     }
+
+                    userLog.saveArrangeTaskLog(userName, "decreasing");
 
                     displayArrangeTask(cloneTask);
                 }
@@ -344,14 +362,18 @@ public class TaskDAOImpl implements TaskDAO {
                         if (option.equals("y")) {
                             tasks.get(index).setStatus("Completed");
                             System.out.println("Great job! Keep your momentum!");
+
+                            userLog.saveChangeStatusLog(name, id);
                         }
                     } else {
                         System.out.println("You already have completed this task! Good job!");
                     }
                 } else {
+                    userLog.saveErrorLog("Task not found");
                     System.out.println("Task id " + id + " not found!");
                 }
             } catch (NegativeInputException | NumberFormatException e) {
+                userLog.saveErrorLog("Invalid input");
                 if (e instanceof NegativeInputException) {
                     System.err.println("Negative input exception!");
                 } else {
@@ -405,7 +427,12 @@ public class TaskDAOImpl implements TaskDAO {
             i++;
         }
 
-        return checkEmpty == 0 || checkDeleted == tasks.size();
+        if (checkEmpty == 0 || checkDeleted == tasks.size()) {
+            userLog.saveErrorLog("Empty list");
+            return true;
+        }
+
+        return false;
     }
 
     public boolean isValid(String completeDate) {

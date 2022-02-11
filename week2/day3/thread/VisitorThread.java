@@ -1,35 +1,37 @@
 package greatlearning.week2.day3.thread;
 
+import greatlearning.week2.day3.exception.WrongCredentialsException;
 import greatlearning.week2.day3.implementation.TaskDAOImpl;
 import greatlearning.week2.day3.implementation.UserDAOImpl;
-import greatlearning.week2.day3.implementation.LogImpl;
+import greatlearning.week2.day3.implementation.UserLogImpl;
 
 import java.util.Scanner;
 
 public class VisitorThread implements Runnable {
     Scanner sc = new Scanner(System.in);
 
-    LogImpl userLog = new LogImpl();
+    UserLogImpl userLog = new UserLogImpl();
 
     @Override
     public void run() {
         UserDAOImpl userDAO = new UserDAOImpl();
         TaskDAOImpl taskDAO = new TaskDAOImpl();
 
-        System.out.println("Enter your name: ");
-        String name = sc.nextLine();
+        try {
+            System.out.println("Enter your name: ");
+            String name = sc.nextLine();
 
-        int checkLoginVisitor = userDAO.login(name);
+            int checkLoginVisitor = userDAO.login(name);
 
-        if (checkLoginVisitor == 1) {
-            try {
+            if (checkLoginVisitor == 1) {
                 userLog.saveLoginLog(name, "Visitor");
                 menu(name, taskDAO);
-            } catch (NumberFormatException e) {
-                System.err.println("Number format exception!");
+            } else {
+                userLog.saveErrorLog("Wrong credentials");
+                throw new WrongCredentialsException();
             }
-        } else {
-            System.out.println("Something wrong! Please try again.");
+        } catch (WrongCredentialsException e) {
+            System.err.println("Something wrong! Please try again.");
         }
     }
 
@@ -44,46 +46,49 @@ public class VisitorThread implements Runnable {
             System.out.println("4. Press 4 to display the incomplete tasks");
             System.out.println("0. Press 0 to logout");
 
-            int option = Integer.parseInt(sc.nextLine());
+            String option = sc.nextLine();
 
             switch (option) {
 
                 // Display all tasks assigned to visitor
-                case 1 -> {
+                case "1" -> {
                     System.out.println("-- DISPLAY TASK --");
                     taskDAO.displayAssignedTo(name);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Change status
-                case 2 -> {
+                case "2" -> {
                     System.out.println("-- CHANGE STATUS OF TASK --");
                     taskDAO.changeStatus(name);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Display completed tasks
-                case 3 -> {
+                case "3" -> {
                     System.out.println("-- COMPLETED TASKS --");
                     taskDAO.displayTaskByStatus(name, "Completed");
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Display incomplete tasks
-                case 4 -> {
+                case "4" -> {
                     System.out.println("-- INCOMPLETE TASKS --");
                     taskDAO.displayTaskByStatus(name, "Incomplete");
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Logout
-                case 0 -> {
+                case "0" -> {
                     userLog.saveLogoutLog(name, "Visitor");
                     isStop = true;
                     System.out.println("Logout successfully!");
                 }
 
-                default -> System.out.println("Invalid option!");
+                default -> {
+                    userLog.saveErrorLog("Invalid input");
+                    System.out.println("Invalid option!");
+                }
             }
         }
     }

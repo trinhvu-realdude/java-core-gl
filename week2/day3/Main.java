@@ -1,7 +1,7 @@
 package greatlearning.week2.day3;
 
 import greatlearning.week2.day3.implementation.UserDAOImpl;
-import greatlearning.week2.day3.implementation.LogImpl;
+import greatlearning.week2.day3.implementation.UserLogImpl;
 import greatlearning.week2.day3.model.Client;
 import greatlearning.week2.day3.model.Visitor;
 import greatlearning.week2.day3.thread.ClientThread;
@@ -14,7 +14,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        LogImpl userLog = new LogImpl();
+        UserLogImpl userLog = new UserLogImpl();
+        userLog.startLog();
 
         System.out.println("-- TO DO MANAGER --");
 
@@ -53,7 +54,7 @@ public class Main {
                             userLog.saveRegisterLog(visitor.getName(), "Visitor");
 
                         } else {
-                            userLog.saveErrorLog("Invalid register input");
+                            userLog.saveErrorLog("Invalid input");
                             System.out.println("Please try again.");
                         }
 
@@ -88,7 +89,7 @@ public class Main {
                             visitor.join();
 
                         } else {
-                            userLog.saveErrorLog("Invalid login input");
+                            userLog.saveErrorLog("Invalid input");
                             System.out.println("Please try again.");
                         }
 
@@ -109,7 +110,8 @@ public class Main {
                 }
             } catch (NumberFormatException e) {
                 System.err.println("Number format exception!");
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 System.err.println("Interrupted exception!");
             }
         }

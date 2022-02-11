@@ -1,6 +1,8 @@
 package greatlearning.week2.day3.service;
 
-public interface ILog {
+public interface IUserLog {
+
+    void startLog();
 
     void saveRegisterLog(String user, String role);
 

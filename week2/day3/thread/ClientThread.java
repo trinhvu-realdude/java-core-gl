@@ -1,55 +1,60 @@
 package greatlearning.week2.day3.thread;
 
+import greatlearning.week2.day3.exception.NegativeInputException;
+import greatlearning.week2.day3.exception.WrongCredentialsException;
 import greatlearning.week2.day3.implementation.TaskDAOImpl;
 import greatlearning.week2.day3.implementation.UserDAOImpl;
-import greatlearning.week2.day3.implementation.LogImpl;
+import greatlearning.week2.day3.implementation.UserLogImpl;
 
 import java.util.Scanner;
 
 public class ClientThread implements Runnable {
     Scanner sc = new Scanner(System.in);
 
-    LogImpl userLog = new LogImpl();
+    UserLogImpl userLog = new UserLogImpl();
 
     @Override
     public void run() {
         UserDAOImpl userDAO = new UserDAOImpl();
         TaskDAOImpl taskDAO = new TaskDAOImpl();
 
-        System.out.println("Username: ");
-        String userName = sc.nextLine().trim();
+        try {
+            System.out.println("Username: ");
+            String userName = sc.nextLine().trim();
 
-        System.out.println("Password: ");
-        String password = sc.nextLine().trim();
+            System.out.println("Password: ");
+            String password = sc.nextLine().trim();
 
-        int checkLoginClient = userDAO.login(userName, password);
+            int checkLoginClient = userDAO.login(userName, password);
 
-        if (checkLoginClient == 1) {
-            userLog.saveLoginLog(userName, "Client");
-            if (taskDAO.getLength() != 0) {
-                try {
+            if (checkLoginClient == 1) {
+
+                userLog.saveLoginLog(userName, "Client");
+
+                if (taskDAO.getLength() != 0) {
                     menu(taskDAO, userName);
-                } catch (NumberFormatException e) {
-                    System.err.println("Number format exception!");
-                }
-            } else {
-                try {
-                    System.out.println("How many tasks you would like to add?");
-                    int size = Integer.parseInt(sc.nextLine());
+                } else {
+                    try {
+                        System.out.println("How many tasks you would like to add?");
+                        int size = Integer.parseInt(sc.nextLine());
 
-                    taskDAO = new TaskDAOImpl(size);
+                        if (size <= 0) {
+                            throw new NegativeInputException();
+                        }
 
-                    menu(taskDAO, userName);
-                } catch (NumberFormatException | NegativeArraySizeException e) {
-                    if (e instanceof NumberFormatException) {
-                        System.err.println("Number format exception!");
-                    } else {
-                        System.err.println("Negative array exception!");
+                        taskDAO = new TaskDAOImpl(size);
+
+                        menu(taskDAO, userName);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Please enter the positive number");
                     }
                 }
+            } else {
+                userLog.saveErrorLog("Wrong credentials");
+                throw new WrongCredentialsException();
             }
-        } else {
-            System.out.println("Credentials wrong! Please try again.");
+        } catch (WrongCredentialsException e) {
+            System.err.println("Credentials wrong! Please try again.");
         }
     }
 
@@ -66,59 +71,62 @@ public class ClientThread implements Runnable {
             System.out.println("6. Press 6 to arrange list of tasks in any order");
             System.out.println("0. Press 0 to logout");
 
-            int option = Integer.parseInt(sc.nextLine());
+            String option = sc.nextLine();
 
             switch (option) {
 
                 // Create task
-                case 1 -> {
+                case "1" -> {
                     System.out.println("-- CREATE TASK --");
-                    taskDAO.create();
+                    taskDAO.create(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Update task
-                case 2 -> {
+                case "2" -> {
                     System.out.println("-- UPDATE TASK --");
-                    taskDAO.update();
+                    taskDAO.update(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Search task
-                case 3 -> {
+                case "3" -> {
                     System.out.println("-- SEARCH TASK --");
-                    taskDAO.search();
+                    taskDAO.search(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Delete task
-                case 4 -> {
+                case "4" -> {
                     System.out.println("-- DELETE TASK --");
-                    taskDAO.delete();
+                    taskDAO.delete(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Display task
-                case 5 -> {
+                case "5" -> {
                     System.out.println("-- DISPLAY TASK --");
-                    taskDAO.display();
+                    taskDAO.display(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
-                case 6 -> {
+                case "6" -> {
                     System.out.println("-- ARRANGE TASK --");
-                    taskDAO.arrange();
+                    taskDAO.arrange(userName);
                     System.out.println("-- *-*-*-*-* --");
                 }
 
                 // Logout
-                case 0 -> {
+                case "0" -> {
                     userLog.saveLogoutLog(userName, "Client");
                     isStop = true;
                     System.out.println("Goodbye, see you later!");
                 }
 
-                default -> System.out.println("Invalid option!");
+                default -> {
+                    userLog.saveErrorLog("Invalid input");
+                    System.out.println("Invalid option!");
+                }
             }
         }
     }

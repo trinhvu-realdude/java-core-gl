@@ -2,13 +2,13 @@ package greatlearning.week2.day3.service;
 
 public interface TaskDAO {
 
-    void create();
+    void create(String userName);
 
-    void update();
+    void update(String userName);
 
-    void search();
+    void search(String userName);
 
-    void delete();
+    void delete(String userName);
 
-    void display();
+    void display(String userName);
 }

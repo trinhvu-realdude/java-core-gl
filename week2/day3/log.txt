@@ -1,0 +1,43 @@
+2022-02-11T21:58:23.804180100: [Initiated] - Start the application 
+2022-02-11T21:58:23.804180100: [Registration] - Client trinh register successfully 
+2022-02-11T22:01:02.639102400: [Login] - Client trinh login successfully 
+2022-02-11T22:01:13.841226600: [Task] - trinh create the task 'study' 
+2022-02-11T22:01:13.841226600: [Task] - trinh create the task 'relax' 
+2022-02-11T22:01:13.841226600: [Task] - trinh create the task 'study' 
+2022-02-11T22:01:13.841226600: [Task] - trinh search the task 'study' 
+2022-02-11T22:01:13.841226600: [Task] - trinh update the task 2 
+2022-02-11T22:01:13.841226600: [Task] - trinh arrange the list of task in increasing order 
+2022-02-11T22:01:13.841226600: [Task] - trinh arrange the list of task in decreasing order 
+2022-02-11T22:01:13.841226600: [Task] - trinh arrange the list of task in increasing order 
+2022-02-11T22:01:02.639102400: [Logout] - Client trinh logout 
+2022-02-11T21:58:23.804180100: [Registration] - Visitor john register successfully 
+2022-02-11T21:58:23.804180100: [Registration] - Visitor alex register successfully 
+2022-02-11T21:58:23.804180100: [Error] - Invalid input 
+2022-02-11T22:09:57.824846700: [Login] - Visitor john login successfully 
+2022-02-11T22:09:57.824846700: [Error] - Invalid input 
+2022-02-11T22:09:57.824846700: [Error] - Invalid input 
+2022-02-11T22:09:57.824846700: [Error] - Task not found 
+2022-02-11T22:09:57.824846700: [Task] - Visitor john mark the task 1 as completed 
+2022-02-11T22:09:57.824846700: [Logout] - Visitor john logout 
+2022-02-11T22:14:21.626872400: [Login] - Visitor alex login successfully 
+2022-02-11T22:14:21.626872400: [Task] - Visitor alex mark the task 2 as completed 
+2022-02-11T22:14:21.626872400: [Logout] - Visitor alex logout 
+2022-02-11T22:16:32.453356: [Login] - Client trinh login successfully 
+2022-02-11T22:16:32.453356: [Error] - Wrong format of date 
+2022-02-11T22:16:32.453356: [Error] - Invalid input 
+2022-02-11T22:16:32.453356: [Error] - Invalid input 
+2022-02-11T22:16:32.453356: [Task] - trinh delete the task 1 
+2022-02-11T22:16:32.453356: [Error] - Invalid input 
+2022-02-11T22:16:32.453356: [Error] - Task not found 
+2022-02-11T22:16:32.453356: [Task] - trinh delete the task 2 
+2022-02-11T22:16:32.453356: [Task] - trinh arrange the list of task in increasing order 
+2022-02-11T22:16:32.453356: [Task] - trinh delete the task 3 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Error] - Empty list 
+2022-02-11T22:16:32.453356: [Logout] - Client trinh logout 
+2022-02-11T21:58:23.804180100: [Terminated] - Exit the application 
