@@ -1,0 +1,22 @@
+2022-02-12T10:35:10.234204700: [Initiated] - Start the application 
+2022-02-12T10:35:10.234204700: [Registration] - User trinh is created automatically 
+2022-02-12T10:35:13.512454800: [Login] - User trinh login successfully 
+2022-02-12T10:35:17.176056300: [Book] - Display list of books 
+2022-02-12T10:35:17.176056300: [Book] - User trinh search book id 10 
+2022-02-12T10:35:17.176056300: [Book] - User trinh add book id 10 to the favourite book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh search book id 8 
+2022-02-12T10:35:17.176056300: [Book] - User trinh add book id 8 to the favourite book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh search book id 2 
+2022-02-12T10:35:17.176056300: [Book] - User trinh add book id 2 to the favourite book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh add book id 2 to the new book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh search book id 10 
+2022-02-12T10:35:17.176056300: [Book] - User trinh add book id 10 to the completed book list 
+2022-02-12T10:35:17.176056300: [Error] - Duplicated book in list 
+2022-02-12T10:35:17.176056300: [Error] - Duplicated book in list 
+2022-02-12T10:35:13.512454800: [Logout] - User trinh logout 
+2022-02-12T10:35:13.512454800: [Login] - User trinh login successfully 
+2022-02-12T10:35:17.176056300: [Book] - User trinh display the new book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh display the favourite book list 
+2022-02-12T10:35:17.176056300: [Book] - User trinh display the completed book list 
+2022-02-12T10:35:13.512454800: [Logout] - User trinh logout 
+2022-02-12T10:35:10.234204700: [Terminated] - Exit the application 
