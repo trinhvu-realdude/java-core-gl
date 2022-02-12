@@ -37,9 +37,9 @@ public class LogImpl {
         }
     }
 
-    public void saveAutoRegisterLog() {
+    public void saveRegisterLog(String user) {
         try {
-            this.bufferedWriter.write(dateTime + ": [Registration] - User trinh is created automatically \n");
+            this.bufferedWriter.write(dateTime + ": [Registration] - User " + user + " register successfully \n");
             this.bufferedWriter.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());

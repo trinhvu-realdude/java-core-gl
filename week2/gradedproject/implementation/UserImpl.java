@@ -1,24 +1,56 @@
 package greatlearning.week2.gradedproject.implementation;
 
+import greatlearning.week2.gradedproject.exception.DuplicateElementException;
 import greatlearning.week2.gradedproject.model.User;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserImpl {
 
-    private static final User newUser = new User();
+    private static final ArrayList<User> users = new ArrayList<User>();
 
-    public void register() {
-        newUser.setUserName("trinh");
-        newUser.setPassword("123");
-    }
+    public void register(User user) {
+        Scanner sc = new Scanner(System.in);
 
-    public int login(String userName, String password) {
-        if (newUser.getUserName().equals(userName) && newUser.getPassword().equals(password)) {
-            return 1;
+        try {
+
+            System.out.println("Enter your username: ");
+            String userName = sc.nextLine().trim();
+
+            System.out.println("Enter your password: ");
+            String password = sc.nextLine().trim();
+
+            if (isDuplicated(userName)) {
+                throw new DuplicateElementException();
+            }
+
+            user.setUserName(userName);
+            user.setPassword(password);
+
+            users.add(user);
+
+            System.out.println("Register successfully!");
+        } catch (DuplicateElementException e) {
+            System.err.println("Username already existed! Please try again");
         }
-        return 0;
     }
 
-    public User getUser() {
-        return newUser;
+    public User login(String userName, String password) {
+        for (User user : users) {
+            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean isDuplicated(String userName) {
+        for (User user: users) {
+            if (user.getUserName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

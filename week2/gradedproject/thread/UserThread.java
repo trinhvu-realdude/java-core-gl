@@ -15,7 +15,7 @@ public class UserThread implements Runnable {
 
     @Override
     public void run() {
-        UserImpl user = new UserImpl();
+        UserImpl userImpl = new UserImpl();
 
         try {
             System.out.println("Username: ");
@@ -24,15 +24,15 @@ public class UserThread implements Runnable {
             System.out.println("Password: ");
             String password = sc.nextLine();
 
-            int loginCheck = user.login(userName, password);
+            User user = userImpl.login(userName, password);
 
-            if (loginCheck == 1) {
+            if (user != null) {
                 System.out.println("Login successfully!");
                 System.out.println("-- Hi, " + userName + "! --");
 
                 log.saveLoginLog(userName);
 
-                menu(user.getUser());
+                menu(user);
             } else {
                 // Login failed
                 log.saveErrorLog("Wrong credentials");

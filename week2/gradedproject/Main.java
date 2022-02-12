@@ -2,6 +2,7 @@ package greatlearning.week2.gradedproject;
 
 import greatlearning.week2.gradedproject.implementation.LogImpl;
 import greatlearning.week2.gradedproject.implementation.UserImpl;
+import greatlearning.week2.gradedproject.model.User;
 import greatlearning.week2.gradedproject.thread.UserThread;
 
 import java.util.Scanner;
@@ -17,16 +18,14 @@ public class Main {
         LogImpl log = new LogImpl();
         log.startLog();
 
-        // automatically create a default user with username: trinh, password: 123
         UserImpl userImpl = new UserImpl();
-        userImpl.register();
-        log.saveAutoRegisterLog();
 
         boolean isStop = false;
 
         // while loop to display 2 options: login and exit
         while (!isStop) {
-            System.out.println("1. Press 1 to login");
+            System.out.println("1. Press 1 to register");
+            System.out.println("2. Press 2 to login");
             System.out.println("0. Press 0 to exit");
 
             try {
@@ -34,8 +33,19 @@ public class Main {
 
                 switch (option) {
 
-                    // Login
+                    // Register
                     case "1" -> {
+                        System.out.println("-- REGISTER --");
+
+                        User user = new User();
+                        userImpl.register(user);
+                        log.saveRegisterLog(user.getUserName());
+
+                        System.out.println("-- *-*-*-*-* --");
+                    }
+
+                    // Login
+                    case "2" -> {
                         System.out.println("-- LOGIN --");
 
                         // Create new thread for user

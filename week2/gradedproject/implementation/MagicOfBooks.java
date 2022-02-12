@@ -15,13 +15,6 @@ public class MagicOfBooks {
 
     static LogImpl log = new LogImpl();
 
-    // Declare 3 new arrays to store 3 types of book: new book, favourite, completed
-    private static ArrayList<Book> newBookList = new ArrayList<Book>();
-
-    private static ArrayList<Book> favouriteList = new ArrayList<Book>();
-
-    private static ArrayList<Book> completedList = new ArrayList<Book>();
-
     private static BookSeed books = new BookSeed();
 
     private static ArrayList<Book> list = books.getList();
@@ -42,7 +35,8 @@ public class MagicOfBooks {
     /**
      * Function: search
      *
-     * @param user Search book by id, then execute a sub menu to add book to new book, favourite, completed
+     * @param user Search book by id, then execute a sub menu to add book to new
+     *             book, favourite, completed
      */
     public static void search(User user) {
         try {
@@ -84,7 +78,8 @@ public class MagicOfBooks {
      * Function: subMenu
      *
      * @param id
-     * @param user Display sub menu to add book to new book, favourite, completed collection
+     * @param user Display sub menu to add book to new book, favourite, completed
+     *             collection
      */
     public static void subMenu(int id, User user) {
         boolean isStop = false;
@@ -142,15 +137,18 @@ public class MagicOfBooks {
      */
     public static void addNewBook(int id, User user) {
         try {
+            ArrayList<Book> newBookList = user.getNewBook();
+
             System.out.print("Do you want to add this book to your new book collection? (y/n) ");
             String option = sc.nextLine();
 
             if (option.equals("y")) {
                 for (Book book : list) {
                     if (book.getId() == id) {
-                        if (isDuplicated(book, user.getNewBook())) {
+                        if (isDuplicated(book, newBookList)) {
                             throw new DuplicateElementException();
                         } else {
+
                             newBookList.add(book);
 
                             user.setNewBook(newBookList);
@@ -180,18 +178,21 @@ public class MagicOfBooks {
      */
     public static void addFavourite(int id, User user) {
         try {
+            ArrayList<Book> favouriteBookList = user.getFavourite();
+
             System.out.print("Do you want to add this book to your favourite collection? (y/n) ");
             String option = sc.nextLine();
 
             if (option.equals("y")) {
                 for (Book book : list) {
                     if (book.getId() == id) {
-                        if (isDuplicated(book, user.getFavourite())) {
+                        if (isDuplicated(book, favouriteBookList)) {
                             throw new DuplicateElementException();
                         } else {
-                            favouriteList.add(book);
 
-                            user.setFavourite(favouriteList);
+                            favouriteBookList.add(book);
+
+                            user.setFavourite(favouriteBookList);
 
                             System.out.println("Add the book " + book.getName() + " to Favourite list successfully!");
                         }
@@ -218,18 +219,20 @@ public class MagicOfBooks {
      */
     public static void addCompleted(int id, User user) {
         try {
+            ArrayList<Book> completedBookList = user.getCompleted();
+
             System.out.print("Have you finished reading this book yet? (y/n) ");
             String option = sc.nextLine();
 
             if (option.equals("y")) {
                 for (Book book : list) {
                     if (book.getId() == id) {
-                        if (isDuplicated(book, user.getCompleted())) {
+                        if (isDuplicated(book, completedBookList)) {
                             throw new DuplicateElementException();
                         } else {
-                            completedList.add(book);
+                            completedBookList.add(book);
 
-                            user.setCompleted(completedList);
+                            user.setCompleted(completedBookList);
 
                             System.out.println("Well done!");
                         }
@@ -282,7 +285,7 @@ public class MagicOfBooks {
      * @param list
      * @param userName
      *
-     * Display the personal list
+     *                 Display the personal list
      */
     public static void displayPersonalList(ArrayList<Book> bookList, String list, String userName) {
         if (isEmpty(bookList)) {
@@ -307,8 +310,8 @@ public class MagicOfBooks {
      *
      * @param bookList
      * @return true if the list is empty and vice versa
-     * <p>
-     * Check list whether this is empty
+     *         <p>
+     *         Check list whether this is empty
      */
     public static boolean isEmpty(ArrayList<Book> bookList) {
         int check = 0;
@@ -332,8 +335,8 @@ public class MagicOfBooks {
      * @param book
      * @param bookList
      * @return true if the book added to list already existed and vice versa
-     * <p>
-     * Check duplicated book in list
+     *         <p>
+     *         Check duplicated book in list
      */
     public static boolean isDuplicated(Book book, ArrayList<Book> bookList) {
         for (Book value : bookList) {
