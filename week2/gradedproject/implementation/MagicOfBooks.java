@@ -51,24 +51,29 @@ public class MagicOfBooks {
 
             if (id <= 0) {
                 throw new NegativeInputException();
-            }
+            } else {
+                if (id > list.size()) {
+                    log.saveErrorLog("Book not found");
+                    System.out.println("Book not found");
+                } else {
+                    for (Book book : list) {
+                        if (book.getId() == id) {
+                            System.out.println("-- DETAIL BOOK --");
+                            System.out.println("- Id: " + book.getId());
+                            System.out.println("- Name: " + book.getName());
+                            System.out.println("- Author: " + book.getAuthorName());
+                            System.out.println("- Description: " + book.getDescription());
+                        }
+                    }
 
-            for (Book book : list) {
-                if (book.getId() == id) {
-                    System.out.println("-- DETAIL BOOK --");
-                    System.out.println("- Id: " + book.getId());
-                    System.out.println("- Name: " + book.getName());
-                    System.out.println("- Author: " + book.getAuthorName());
-                    System.out.println("- Description: " + book.getDescription());
+                    log.saveSearchBookLog(user.getUserName(), "search", id);
+
+                    System.out.println("-- SUB MENU --");
+
+                    // After displaying details of book, ask user to choose some options in sub menu
+                    subMenu(id, user);
                 }
             }
-
-            log.saveSearchBookLog(user.getUserName(), "search", id);
-
-            System.out.println("-- SUB MENU --");
-
-            // After displaying details of book, ask user to choose some options in sub menu
-            subMenu(id, user);
         } catch (NegativeInputException | NumberFormatException e) {
             log.saveErrorLog("Invalid input");
             System.err.println("Please enter the positive number!");
