@@ -1,4 +1,4 @@
-package greatlearning.week2.Day2.Exception;
+package greatlearning.week2.day5.exception;
 
 public class NegativeInputException extends RuntimeException {
 }

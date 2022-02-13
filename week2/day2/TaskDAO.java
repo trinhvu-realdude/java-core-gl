@@ -1,4 +1,4 @@
-package greatlearning.week2.Day2;
+package greatlearning.week2.day2;
 
 public interface TaskDAO {
 

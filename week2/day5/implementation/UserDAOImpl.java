@@ -1,9 +1,9 @@
-package greatlearning.week2.day3.implementation;
+package greatlearning.week2.day5.implementation;
 
-import greatlearning.week2.day3.model.Client;
-import greatlearning.week2.day3.service.UserDAO;
-import greatlearning.week2.day3.model.User;
-import greatlearning.week2.day3.model.Visitor;
+import greatlearning.week2.day5.model.Client;
+import greatlearning.week2.day5.model.User;
+import greatlearning.week2.day5.model.Visitor;
+import greatlearning.week2.day5.service.UserDAO;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,7 +1,7 @@
-package greatlearning.week2.Day2.Thread;
+package greatlearning.week2.day2.thread;
 
-import greatlearning.week2.Day2.TaskDAOImpl;
-import greatlearning.week2.Day2.UserDAOImpl;
+import greatlearning.week2.day2.TaskDAOImpl;
+import greatlearning.week2.day2.UserDAOImpl;
 
 import java.util.Scanner;
 

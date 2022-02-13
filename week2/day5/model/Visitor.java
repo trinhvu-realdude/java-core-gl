@@ -1,4 +1,4 @@
-package greatlearning.week2.Day2;
+package greatlearning.week2.day5.model;
 
 public class Visitor extends User {
 

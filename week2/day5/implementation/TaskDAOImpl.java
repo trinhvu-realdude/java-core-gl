@@ -1,11 +1,12 @@
-package greatlearning.week2.day3.implementation;
+package greatlearning.week2.day5.implementation;
 
-import greatlearning.week2.day3.exception.NegativeInputException;
-import greatlearning.week2.day3.service.TaskDAO;
-import greatlearning.week2.day3.model.Task;
+import greatlearning.week2.day5.exception.NegativeInputException;
+import greatlearning.week2.day5.model.Task;
+import greatlearning.week2.day5.service.TaskDAO;
 
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class TaskDAOImpl implements TaskDAO {
 
@@ -14,6 +15,15 @@ public class TaskDAOImpl implements TaskDAO {
     Scanner sc = new Scanner(System.in);
 
     UserLogImpl userLog = new UserLogImpl();
+
+    Consumer<Task> consumer = (task) -> System.out.println(
+            "Task [" + task.getId()
+                    + "] (" + task.getCompleteDate() + ")"
+                    + ": " + task.getTitle()
+                    + " - " + task.getText()
+                    + " - status: " + task.getStatus()
+                    + " (assigned to: " + task.getAssignTo() + ")"
+    );
 
     public TaskDAOImpl(int size) {
         tasks.setSize(size);
@@ -90,24 +100,29 @@ public class TaskDAOImpl implements TaskDAO {
                     System.out.println("Enter the new task " + id + " assigned to (" + tasks.get(index).getAssignTo() + "):");
                     String assignTo = sc.nextLine().trim();
 
-                    tasks.get(index).setTitle(title);
-                    tasks.get(index).setText(text);
-                    tasks.get(index).setAssignTo(assignTo);
+                    System.out.println("Enter the new task " + id + " complete date (" + tasks.get(index).getCompleteDate() + "):");
+                    String completeDate = sc.nextLine().trim();
 
-                    System.out.println("Update successfully!");
+                    if (isValid(completeDate)) {
+                        tasks.get(index).setTitle(title);
+                        tasks.get(index).setText(text);
+                        tasks.get(index).setAssignTo(assignTo);
+                        tasks.get(index).setCompleteDate(completeDate);
 
-                    userLog.saveUpdateTaskLog(userName, id);
+                        System.out.println("Update successfully!");
+
+                        userLog.saveUpdateTaskLog(userName, id);
+                    } else {
+                        userLog.saveErrorLog("Wrong format of date");
+                        System.out.println("Wrong format of date! Please try again!");
+                    }
                 } else {
                     userLog.saveErrorLog("Task not found");
                     System.out.println("Task id " + id + " not found!");
                 }
             } catch (NegativeInputException | NumberFormatException e) {
                 userLog.saveErrorLog("Invalid input");
-                if (e instanceof NegativeInputException) {
-                    System.err.println("Negative input exception!");
-                } else {
-                    System.err.println("Number format exception!");
-                }
+                System.err.println("Please enter the positive number!");
             }
         }
     }
@@ -125,16 +140,12 @@ public class TaskDAOImpl implements TaskDAO {
             while (i < tasks.size()) {
                 if (tasks.get(i).getTitle().equals(title)) {
                     if (!title.equals("Deleted")) {
-                        System.out.println("Task [" + tasks.get(i).getId()
-                                + "], title: " + tasks.get(i).getTitle()
-                                + ", text: " + tasks.get(i).getText()
-                                + ", assigned to: " + tasks.get(i).getAssignTo());
+                        consumer.accept(tasks.get(i));
                         checkSearch = true;
                     }
                 }
                 i++;
             }
-
             if (!checkSearch) {
                 userLog.saveErrorLog("Task not found");
                 System.out.println("Task " + title + " does not exist!");
@@ -158,10 +169,7 @@ public class TaskDAOImpl implements TaskDAO {
                 }
 
                 if (id <= tasks.size() && !tasks.get(id - 1).getTitle().equals("Deleted")) {
-                    System.out.println("Task [" + tasks.get(id - 1).getId()
-                            + "], title: " + tasks.get(id - 1).getTitle()
-                            + ", text: " + tasks.get(id - 1).getText()
-                            + ", assigned to: " + tasks.get(id - 1).getAssignTo());
+                    System.out.println(tasks.get(id - 1).toString());
 
                     System.out.print("Are you sure to delete task [" + id + "]? (y/n) ");
                     String sure = sc.nextLine().trim();
@@ -180,11 +188,7 @@ public class TaskDAOImpl implements TaskDAO {
                 }
             } catch (NegativeInputException | NumberFormatException e) {
                 userLog.saveErrorLog("Invalid input");
-                if (e instanceof NegativeInputException) {
-                    System.err.println("Negative input exception!");
-                } else {
-                    System.err.println("Number format exception!");
-                }
+                System.err.println("Please enter the positive number!");
             }
         }
     }
@@ -194,24 +198,11 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(tasks)) {
             System.out.println("List of tasks is empty!");
         } else {
-            int count = 0;
-            for (Task task : tasks) {
-                if (task != null) {
-                    if (task.getTitle().equals("Deleted")) {
-                        count++;
-                        continue;
-                    }
-                    System.out.println("Task [" + task.getId()
-                            + "] (" + task.getCompleteDate() + ")"
-                            + ": " + task.getTitle()
-                            + " - " + task.getText()
-                            + " - status: " + task.getStatus() + " (assigned to: " + task.getAssignTo() + ")");
+            tasks.forEach((task) -> {
+                if (!task.getTitle().equals("Deleted")) {
+                    consumer.accept(task);
                 }
-            }
-
-            if (count == tasks.size()) {
-                System.out.println("List of tasks is empty!");
-            }
+            });
         }
     }
 
@@ -219,24 +210,11 @@ public class TaskDAOImpl implements TaskDAO {
         if (isEmpty(list)) {
             System.out.println("List of tasks is empty!");
         } else {
-            int count = 0;
-            for (Task task : list) {
-                if (task != null) {
-                    if (task.getTitle().equals("Deleted")) {
-                        count++;
-                        continue;
-                    }
-                    System.out.println("Task [" + task.getId()
-                            + "] (" + task.getCompleteDate() + ")"
-                            + ": " + task.getTitle()
-                            + " - " + task.getText()
-                            + " - status: " + task.getStatus() + " (assigned to: " + task.getAssignTo() + ")");
+            list.forEach((task) -> {
+                if (!task.getTitle().equals("Deleted")) {
+                    consumer.accept(task);
                 }
-            }
-
-            if (count == list.size()) {
-                System.out.println("List of tasks is empty!");
-            }
+            });
         }
     }
 
@@ -321,15 +299,10 @@ public class TaskDAOImpl implements TaskDAO {
             int count = 0;
             for (Task task : tasks) {
                 if (task.getAssignTo().equals(name)) {
-                    System.out.println("Task [" + task.getId()
-                            + "] (" + task.getCompleteDate() + ")"
-                            + ": " + task.getTitle()
-                            + " - " + task.getText()
-                            + " - status: " + task.getStatus());
+                    consumer.accept(task);
                     count++;
                 }
             }
-
             if (count == 0) {
                 System.out.println("List of tasks assigned to you is empty!");
             }
@@ -374,11 +347,7 @@ public class TaskDAOImpl implements TaskDAO {
                 }
             } catch (NegativeInputException | NumberFormatException e) {
                 userLog.saveErrorLog("Invalid input");
-                if (e instanceof NegativeInputException) {
-                    System.err.println("Negative input exception!");
-                } else {
-                    System.err.println("Number format exception!");
-                }
+                System.err.println("Please enter the positive number!");
             }
         }
     }
@@ -390,11 +359,7 @@ public class TaskDAOImpl implements TaskDAO {
             int count = 0;
             for (Task task : tasks) {
                 if (task.getAssignTo().equals(name) && task.getStatus().equals(status)) {
-                    System.out.println("Task [" + task.getId()
-                            + "] (" + task.getCompleteDate() + ")"
-                            + ": " + task.getTitle()
-                            + " - " + task.getText()
-                            + " - status: " + task.getStatus());
+                    consumer.accept(task);
                     count++;
                 }
             }

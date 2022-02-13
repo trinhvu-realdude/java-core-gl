@@ -1,6 +1,6 @@
-package greatlearning.week2.Day2;
+package greatlearning.week2.day2;
 
-import greatlearning.week2.Day2.Exception.NegativeInputException;
+import greatlearning.week2.day2.exception.NegativeInputException;
 
 import java.util.Scanner;
 

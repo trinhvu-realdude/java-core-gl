@@ -1,6 +1,6 @@
-package greatlearning.week2.day3.service;
+package greatlearning.week2.day5.service;
 
-import greatlearning.week2.day3.model.User;
+import greatlearning.week2.day5.model.User;
 
 public interface UserDAO {
 

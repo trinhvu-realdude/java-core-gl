@@ -1,7 +1,7 @@
-package greatlearning.week2.Day2;
+package greatlearning.week2.day2;
 
-import greatlearning.week2.Day2.Thread.ClientThread;
-import greatlearning.week2.Day2.Thread.VisitorThread;
+import greatlearning.week2.day2.thread.ClientThread;
+import greatlearning.week2.day2.thread.VisitorThread;
 
 import java.util.Scanner;
 
