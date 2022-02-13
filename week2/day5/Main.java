@@ -27,13 +27,12 @@ public class Main {
             System.out.println("0. Press 0 to exit");
 
             try {
-                String input = sc.nextLine();
-                int option = Integer.parseInt(input);
+                String option = sc.nextLine();
 
                 switch (option) {
 
                     // Register
-                    case 1 -> {
+                    case "1" -> {
                         System.out.println("-- REGISTRATION --");
                         System.out.println("1. Press 1 to register as a client");
                         System.out.println("2. Press 2 to register as a visitor");
@@ -62,7 +61,7 @@ public class Main {
                     }
 
                     // Login
-                    case 2 -> {
+                    case "2" -> {
                         System.out.println("-- LOGIN --");
                         System.out.println("1. Press 1 to login as a client");
                         System.out.println("2. Press 2 to login as a visitor");
@@ -97,7 +96,7 @@ public class Main {
                     }
 
                     // Exit
-                    case 0 -> {
+                    case "0" -> {
                         userLog.closeLog();
                         isStop = true;
                         System.out.println("Goodbye, see you later!");
@@ -108,10 +107,7 @@ public class Main {
                         System.out.println("Invalid option");
                     }
                 }
-            } catch (NumberFormatException e) {
-                System.err.println("Number format exception!");
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.err.println("Interrupted exception!");
             }
         }
