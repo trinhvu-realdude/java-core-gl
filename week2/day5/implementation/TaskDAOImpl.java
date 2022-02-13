@@ -169,7 +169,7 @@ public class TaskDAOImpl implements TaskDAO {
                 }
 
                 if (id <= tasks.size() && !tasks.get(id - 1).getTitle().equals("Deleted")) {
-                    System.out.println(tasks.get(id - 1).toString());
+                    consumer.accept(tasks.get(id - 1));
 
                     System.out.print("Are you sure to delete task [" + id + "]? (y/n) ");
                     String sure = sc.nextLine().trim();

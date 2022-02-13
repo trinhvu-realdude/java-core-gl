@@ -1,0 +1,47 @@
+Sun Feb 13 22:35:20 ICT 2022: [Initiated] - Start the application 
+Sun Feb 13 22:35:20 ICT 2022: [Registration] - Client trinh register successfully 
+Sun Feb 13 22:35:34 ICT 2022: [Login] - Client trinh login successfully 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh create the task 'study' 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh create the task 'study' 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh create the task 'work' 
+Sun Feb 13 22:35:38 ICT 2022: [Error] - Invalid input 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh arrange the list of task in increasing order 
+Sun Feb 13 22:35:34 ICT 2022: [Error] - Invalid input 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh arrange the list of task in decreasing order 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh search the task 'work' 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh update the task 1 
+Sun Feb 13 22:35:38 ICT 2022: [Task] - trinh arrange the list of task in increasing order 
+Sun Feb 13 22:35:34 ICT 2022: [Logout] - Client trinh logout 
+Sun Feb 13 22:35:20 ICT 2022: [Registration] - Visitor john register successfully 
+Sun Feb 13 22:38:26 ICT 2022: [Login] - Visitor john login successfully 
+Sun Feb 13 22:38:26 ICT 2022: [Logout] - Visitor john logout 
+Sun Feb 13 22:35:20 ICT 2022: [Registration] - Visitor max register successfully 
+Sun Feb 13 22:39:00 ICT 2022: [Login] - Visitor max login successfully 
+Sun Feb 13 22:39:00 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:39:00 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:39:00 ICT 2022: [Logout] - Visitor max logout 
+Sun Feb 13 22:40:16 ICT 2022: [Error] - Wrong credentials 
+Sun Feb 13 22:40:21 ICT 2022: [Login] - Visitor john login successfully 
+Sun Feb 13 22:40:21 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:40:21 ICT 2022: [Task] - Visitor john mark the task 2 as completed 
+Sun Feb 13 22:40:21 ICT 2022: [Logout] - Visitor john logout 
+Sun Feb 13 22:35:20 ICT 2022: [Registration] - Visitor alex register successfully 
+Sun Feb 13 22:41:33 ICT 2022: [Login] - Visitor max login successfully 
+Sun Feb 13 22:41:33 ICT 2022: [Logout] - Visitor max logout 
+Sun Feb 13 22:41:40 ICT 2022: [Login] - Visitor alex login successfully 
+Sun Feb 13 22:41:40 ICT 2022: [Task] - Visitor alex mark the task 3 as completed 
+Sun Feb 13 22:41:40 ICT 2022: [Logout] - Visitor alex logout 
+Sun Feb 13 22:35:20 ICT 2022: [Error] - Invalid input 
+Sun Feb 13 22:42:24 ICT 2022: [Login] - Client trinh login successfully 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh search the task 'study' 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh arrange the list of task in increasing order 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh delete the task 3 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh arrange the list of task in increasing order 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh arrange the list of task in decreasing order 
+Sun Feb 13 22:42:24 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:42:24 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:42:24 ICT 2022: [Error] - Task not found 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh search the task 'study' 
+Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh delete the task 2 
+Sun Feb 13 22:42:24 ICT 2022: [Logout] - Client trinh logout 
+Sun Feb 13 22:35:20 ICT 2022: [Terminated] - Exit the application

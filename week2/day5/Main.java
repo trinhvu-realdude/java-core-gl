@@ -37,17 +37,16 @@ public class Main {
                         System.out.println("1. Press 1 to register as a client");
                         System.out.println("2. Press 2 to register as a visitor");
 
-                        String in = sc.nextLine();
-                        int registerOption = Integer.parseInt(in);
+                        String registerOption = sc.nextLine();
 
                         UserDAOImpl userDAO = new UserDAOImpl();
 
-                        if (registerOption == 1) {
+                        if (registerOption.equals("1")) {
                             Client client = new Client();
                             userDAO.register(client);
                             userLog.saveRegisterLog(client.getUserName(), "Client");
 
-                        } else if (registerOption == 2) {
+                        } else if (registerOption.equals("2")) {
                             Visitor visitor = new Visitor();
                             userDAO.register(visitor);
                             userLog.saveRegisterLog(visitor.getName(), "Visitor");
@@ -66,10 +65,9 @@ public class Main {
                         System.out.println("1. Press 1 to login as a client");
                         System.out.println("2. Press 2 to login as a visitor");
 
-                        String in = sc.nextLine();
-                        int loginOption = Integer.parseInt(in);
+                        String loginOption = sc.nextLine();
 
-                        if (loginOption == 1) {
+                        if (loginOption.equals("1")) {
 
                             // Client login
                             ClientThread clientThread = new ClientThread();
@@ -78,7 +76,7 @@ public class Main {
                             client.start();
                             client.join();
 
-                        } else if (loginOption == 2) {
+                        } else if (loginOption.equals("2")) {
 
                             // Visitor login
                             VisitorThread visitorThread = new VisitorThread();

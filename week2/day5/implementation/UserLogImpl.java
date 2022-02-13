@@ -6,15 +6,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UserLogImpl implements IUserLog {
-    private LocalDateTime dateTime;
+    private Date dateTime;
     private BufferedWriter bufferedWriter;
 
     public UserLogImpl() {
         try {
-            this.dateTime = LocalDateTime.now();
+            this.dateTime = new Date();
 
             String url = System.getProperty("user.dir") + "\\src\\greatlearning\\week2\\day5\\log.txt";
 
