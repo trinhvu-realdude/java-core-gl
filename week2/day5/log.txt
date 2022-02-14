@@ -45,3 +45,6 @@ Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh search the task 'study'
 Sun Feb 13 22:42:24 ICT 2022: [Task] - trinh delete the task 2 
 Sun Feb 13 22:42:24 ICT 2022: [Logout] - Client trinh logout 
 Sun Feb 13 22:35:20 ICT 2022: [Terminated] - Exit the application
+Mon Feb 14 23:41:18 ICT 2022: [Initiated] - Start the application 
+Mon Feb 14 23:41:18 ICT 2022: [Registration] - Client 213 register successfully 
+Mon Feb 14 23:41:45 ICT 2022: [Login] - Client 213 login successfully 
