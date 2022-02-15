@@ -39,7 +39,7 @@ public class UserLogImpl implements IUserLog {
     }
 
     @Override
-    public void saveRegisterLog(String user, String role) {
+    public <T2> void saveRegisterLog(T2 user, String role) {
         try {
             this.bufferedWriter.write(this.dateTime + ": [Registration] - " + role + " " + user + " register successfully \n");
             this.bufferedWriter.flush();

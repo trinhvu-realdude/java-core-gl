@@ -14,3 +14,8 @@ Tue Feb 15 17:57:06 ICT 2022: [Error] - Task not found
 Tue Feb 15 17:57:06 ICT 2022: [Task] - Visitor john mark the task 1 as completed 
 Tue Feb 15 17:57:06 ICT 2022: [Logout] - Visitor john logout 
 Tue Feb 15 17:55:14 ICT 2022: [Terminated] - Exit the application 
+Tue Feb 15 18:08:11 ICT 2022: [Initiated] - Start the application 
+Tue Feb 15 18:08:11 ICT 2022: [Registration] - Client trinh register successfully 
+Tue Feb 15 18:08:19 ICT 2022: [Login] - Client trinh login successfully 
+Tue Feb 15 18:08:19 ICT 2022: [Logout] - Client trinh logout 
+Tue Feb 15 18:08:11 ICT 2022: [Terminated] - Exit the application 

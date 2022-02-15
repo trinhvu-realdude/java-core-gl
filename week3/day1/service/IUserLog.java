@@ -4,7 +4,7 @@ public interface IUserLog {
 
     void startLog();
 
-    void saveRegisterLog(String user, String role);
+    <T2> void saveRegisterLog(T2 user, String role);
 
     void saveLoginLog(String user, String role);
 

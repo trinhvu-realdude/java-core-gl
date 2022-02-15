@@ -45,12 +45,12 @@ public class Main {
                         if (registerOption.equals("1")) {
                             Client<String, String, String> client = new Client<>();
                             userDAO.register(client);
-                            userLog.saveRegisterLog((String) client.getT2(), "Client");
+                            userLog.saveRegisterLog(client.getT2(), "Client");
 
                         } else if (registerOption.equals("2")) {
                             Visitor<String, String, String> visitor = new Visitor<>();
                             userDAO.register(visitor);
-                            userLog.saveRegisterLog((String) visitor.getT2(), "Visitor");
+                            userLog.saveRegisterLog(visitor.getT2(), "Visitor");
 
                         } else {
                             userLog.saveErrorLog("Invalid input");
