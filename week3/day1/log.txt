@@ -1,0 +1,16 @@
+Tue Feb 15 17:55:14 ICT 2022: [Initiated] - Start the application 
+Tue Feb 15 17:55:14 ICT 2022: [Registration] - Client trinh register successfully 
+Tue Feb 15 17:55:29 ICT 2022: [Login] - Client trinh login successfully 
+Tue Feb 15 17:55:32 ICT 2022: [Task] - trinh create the task 'study' 
+Tue Feb 15 17:55:32 ICT 2022: [Task] - trinh create the task 'study' 
+Tue Feb 15 17:55:32 ICT 2022: [Error] - Invalid input 
+Tue Feb 15 17:55:32 ICT 2022: [Error] - Invalid input 
+Tue Feb 15 17:55:32 ICT 2022: [Task] - trinh arrange the list of task in increasing order 
+Tue Feb 15 17:55:32 ICT 2022: [Task] - trinh arrange the list of task in decreasing order 
+Tue Feb 15 17:55:29 ICT 2022: [Logout] - Client trinh logout 
+Tue Feb 15 17:55:14 ICT 2022: [Registration] - Visitor null register successfully 
+Tue Feb 15 17:57:06 ICT 2022: [Login] - Visitor john login successfully 
+Tue Feb 15 17:57:06 ICT 2022: [Error] - Task not found 
+Tue Feb 15 17:57:06 ICT 2022: [Task] - Visitor john mark the task 1 as completed 
+Tue Feb 15 17:57:06 ICT 2022: [Logout] - Visitor john logout 
+Tue Feb 15 17:55:14 ICT 2022: [Terminated] - Exit the application 

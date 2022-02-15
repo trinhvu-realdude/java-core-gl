@@ -16,7 +16,7 @@ public class UserLogImpl implements IUserLog {
         try {
             this.dateTime = new Date();
 
-            String url = System.getProperty("user.dir") + "\\src\\greatlearning\\week2\\day5\\log.txt";
+            String url = System.getProperty("user.dir") + "\\src\\greatlearning\\week3\\day1\\log.txt";
 
             File file = new File(url);
 

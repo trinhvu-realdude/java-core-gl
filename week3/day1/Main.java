@@ -9,6 +9,7 @@ import greatlearning.week3.day1.thread.VisitorThread;
 
 import java.util.Scanner;
 
+@SuppressWarnings("unchecked")
 public class Main {
 
     public static void main(String[] args) {
