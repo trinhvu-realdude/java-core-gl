@@ -1,0 +1,15 @@
+2022-02-16T23:43:05.873171200: [Initiated] - Start the application 
+2022-02-16T23:43:07.593245200: [Login] - User admin login successfully 
+2022-02-16T23:43:11.893101: [Book] - Display list of books 
+2022-02-16T23:44:36.377842500: [Initiated] - Start the application 
+2022-02-16T23:44:37.623144800: [Login] - User admin login successfully 
+2022-02-16T23:44:44.183824300: [Book] - Display list of books 
+2022-02-16T23:44:44.183824300: [Book] - Display list of books 
+2022-02-16T23:46:43.352429300: [Initiated] - Start the application 
+2022-02-16T23:47:08.692419200: [Initiated] - Start the application 
+2022-02-16T23:47:10.776401100: [Login] - User admin login successfully 
+2022-02-16T23:47:18.883171600: [Book] - Display list of books 
+2022-02-16T23:47:10.776401100: [Login] - User admin login successfully 
+2022-02-16T23:49:03.447617500: [Initiated] - Start the application 
+2022-02-16T23:49:07.382909800: [Error] - Wrong credentials 
+2022-02-16T23:49:07.382909800: [Login] - User admin login successfully 
