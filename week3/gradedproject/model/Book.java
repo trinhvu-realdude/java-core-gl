@@ -9,11 +9,13 @@ public class Book {
     private double price;
     private int noOfCopiedSold = 0;
 
-    public Book(String name, String authorName, String description, String genre) {
+    public Book(String name, String authorName, String description, String genre, double price, int noOfCopiedSold) {
         this.name = name;
         this.authorName = authorName;
         this.description = description;
         this.genre = genre;
+        this.price = price;
+        this.noOfCopiedSold = noOfCopiedSold;
     }
 
     public Book() {

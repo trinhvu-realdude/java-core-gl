@@ -9,13 +9,12 @@ import greatlearning.week3.gradedproject.model.User;
 
 import java.util.Scanner;
 
-public class UserThread implements Runnable {
+public class UserThread {
     static Scanner sc = new Scanner(System.in);
 
     static LogImpl log = new LogImpl();
 
-    @Override
-    public void run() {
+    public Runnable user = () -> {
         UserImpl userImpl = new UserImpl();
 
         try {
@@ -46,7 +45,7 @@ public class UserThread implements Runnable {
         } catch (WrongCredentialsException e) {
             System.err.println("Credentials wrong! Please try again.");
         }
-    }
+    };
 
     public static void menuUser(User user) {
         boolean isStop = false;

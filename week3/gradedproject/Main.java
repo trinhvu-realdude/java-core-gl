@@ -53,7 +53,7 @@ public class Main {
 
                         // Create new thread for user
                         UserThread userThread = new UserThread();
-                        Thread u = new Thread(userThread);
+                        Thread u = new Thread(userThread.user);
                         u.setName("user");
                         u.start();
                         u.join();

@@ -6,9 +6,7 @@ import greatlearning.week3.gradedproject.model.Book;
 import greatlearning.week3.gradedproject.model.User;
 import greatlearning.week3.gradedproject.seed.BookSeed;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class MagicOfBooks {
 
@@ -53,15 +51,13 @@ public class MagicOfBooks {
                     log.saveErrorLog("Book not found");
                     System.out.println("Book not found");
                 } else {
-                    for (Integer i : list.keySet()) {
-                        if (i == id) {
-                            System.out.println("-- DETAIL BOOK --");
-                            System.out.println("- Id: " + i);
-                            System.out.println("- Name: " + list.get(i).getName());
-                            System.out.println("- Author: " + list.get(i).getAuthorName());
-                            System.out.println("- Description: " + list.get(i).getDescription());
-                        }
-                    }
+                    System.out.println("-- DETAIL BOOK --");
+                    System.out.println("- Id: " + id);
+                    System.out.println("- Name: " + list.get(id).getName());
+                    System.out.println("- Author: " + list.get(id).getAuthorName());
+                    System.out.println("- Description: " + list.get(id).getDescription());
+                    System.out.println("- Genre: " + list.get(id).getGenre());
+                    System.out.println("- Price: $" + list.get(id).getPrice());
 
                     log.saveSearchBookLog(user.getUserName(), "search", id);
 
@@ -372,7 +368,10 @@ public class MagicOfBooks {
             System.out.println("Enter the book price: ");
             double price = Double.parseDouble(sc.nextLine().trim());
 
-            if (price <= 0) {
+            System.out.println("Enter the no copied of sold for this book:");
+            int noCopiedOfSold = Integer.parseInt(sc.nextLine().trim());
+
+            if (price <= 0 || noCopiedOfSold <= 0) {
                 throw new NegativeInputException();
             }
 
@@ -381,12 +380,13 @@ public class MagicOfBooks {
             book.setDescription(description);
             book.setGenre(genre);
             book.setPrice(price);
+            book.setNoOfCopiedSold(noCopiedOfSold);
 
             list.put(bookId, book);
 
             bookId++;
         } catch (NumberFormatException | NegativeInputException e) {
-            System.err.println("Please enter the positive number!");
+            System.err.println("Please enter right format of number!");
         }
     }
 
@@ -407,6 +407,7 @@ public class MagicOfBooks {
                 System.out.println("- Description: " + list.get(id).getDescription());
                 System.out.println("- Genre: " + list.get(id).getGenre());
                 System.out.println("- Price: $" + list.get(id).getPrice());
+                System.out.println("- No copied of sold: " + list.get(id).getNoOfCopiedSold());
 
                 System.out.print("Are you sure to delete the book [" + id + "]? (y/n) ");
                 String option = sc.nextLine();
@@ -420,7 +421,7 @@ public class MagicOfBooks {
                 System.out.println("Book id " + id + " not found");
             }
         } catch (NegativeInputException | NumberFormatException e) {
-            System.err.println("Please enter the positive number!");
+            System.err.println("Please enter right format of number!");
         }
     }
 
@@ -449,7 +450,10 @@ public class MagicOfBooks {
                 System.out.println("Enter the new book " + id + " price ($" + list.get(id).getPrice() + "):");
                 double price = Double.parseDouble(sc.nextLine().trim());
 
-                if (price <= 0) {
+                System.out.println("Enter the new book " + id + " no of copied of sold (" + list.get(id).getNoOfCopiedSold() + "):");
+                int noCopiedOfSold = Integer.parseInt(sc.nextLine().trim());
+
+                if (price <= 0 || noCopiedOfSold <= 0) {
                     throw new NegativeInputException();
                 }
 
@@ -458,6 +462,7 @@ public class MagicOfBooks {
                 list.get(id).setDescription(description);
                 list.get(id).setGenre(genre);
                 list.get(id).setPrice(price);
+                list.get(id).setNoOfCopiedSold(noCopiedOfSold);
 
                 System.out.println("Update successfully!");
 
@@ -465,16 +470,67 @@ public class MagicOfBooks {
                 System.out.println("Book id " + id + " not found");
             }
         } catch (NegativeInputException | NumberFormatException e) {
-            System.err.println("Please enter the positive number!");
+            System.err.println("Please enter right format of number!");
         }
     }
 
     public static void arrange(User user) {
+        HashMap<Integer, Book> cloneList = new HashMap<>(list);
+
+        System.out.println("1. Price low to high");
+        System.out.println("2. Price high to low");
+        System.out.println("3. Best-selling");
+
+        String option = sc.nextLine();
+
+        switch (option) {
+
+            // Low to high
+            case "1" -> {
+                System.out.println("-- LOW TO HIGH --");
+
+                cloneList.entrySet().stream()
+                        .sorted(Comparator.comparingDouble(k -> k.getValue().getPrice()))
+                        .forEach(k -> System.out.println(
+                                k.getKey() + ". " + k.getValue().getName() + " ($" + k.getValue().getPrice() + ")"
+                        ));
+            }
+
+            // High to low
+            case "2" -> {
+                System.out.println("-- HIGH TO LOW --");
+
+                cloneList.entrySet().stream()
+                        .sorted(Comparator.comparingDouble(k -> -k.getValue().getPrice()))
+                        .forEach(k -> System.out.println(
+                                k.getKey() + ". " + k.getValue().getName() + " ($" + k.getValue().getPrice() + ")"
+                        ));
+            }
+
+            // Best-selling
+            case "3" -> {
+                System.out.println("-- BEST SELLING --");
+
+                cloneList.entrySet().stream()
+                        .sorted(Comparator.comparingInt(k -> -k.getValue().getNoOfCopiedSold()))
+                        .forEach(k -> System.out.println(
+                                k.getKey() + ". " + k.getValue().getName() + " (" + k.getValue().getNoOfCopiedSold() + " copies sold)"
+                        ));
+            }
+
+            default -> System.out.println("Invalid input");
+        }
     }
 
     public static void countTotalOfBook(User user) {
+        System.out.println("Total count of the books is " + list.size());
     }
 
     public static void displayAutobiographyBook(User user) {
+        for (Integer i : list.keySet()) {
+            if (list.get(i).getGenre().equals("Autobiography")) {
+                System.out.println(i + ". " + list.get(i).getName() + " (genre: " + list.get(i).getGenre() + ")");
+            }
+        }
     }
 }

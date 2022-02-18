@@ -4,16 +4,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class LogImpl {
 
-    private LocalDateTime dateTime;
+    private Date dateTime;
     private BufferedWriter bufferedWriter;
 
     public LogImpl() {
         try {
-            this.dateTime = LocalDateTime.now();
+            this.dateTime = new Date();
 
             String url = System.getProperty("user.dir") + "\\src\\greatlearning\\week3\\gradedproject\\log.txt";
 
