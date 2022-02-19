@@ -1,25 +1,26 @@
 package greatlearning.week3.gradedproject.model;
 
-public class Book {
+/**
+ * Class: Book
+ * <p>
+ * Applied Builder Pattern and Prototype Pattern
+ */
+public class Book implements Cloneable {
 
     private String name;
     private String authorName;
     private String description;
     private String genre;
     private double price;
-    private int noOfCopiedSold = 0;
+    private int noOfCopiedSold;
 
-    public Book(String name, String authorName, String description, String genre, double price, int noOfCopiedSold) {
-        this.name = name;
-        this.authorName = authorName;
-        this.description = description;
-        this.genre = genre;
-        this.price = price;
-        this.noOfCopiedSold = noOfCopiedSold;
-    }
-
-    public Book() {
-
+    public Book(BookBuilder builder) {
+        this.name = builder.name;
+        this.authorName = builder.authorName;
+        this.description = builder.description;
+        this.genre = builder.genre;
+        this.price = builder.price;
+        this.noOfCopiedSold = builder.noOfCopiedSold;
     }
 
     public String getName() {
@@ -34,39 +35,62 @@ public class Book {
         return authorName;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public int getNoOfCopiedSold() {
         return noOfCopiedSold;
     }
 
-    public void setNoOfCopiedSold(int noOfCopiedSold) {
+    @Override
+    public Book clone() {
+        try {
+            return (Book) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    public void setBook(String name, String authorName, String description, String genre, double price, int noOfCopiedSold) {
+        this.name = name;
+        this.authorName = authorName;
+        this.description = description;
+        this.genre = genre;
+        this.price = price;
         this.noOfCopiedSold = noOfCopiedSold;
+    }
+
+    /**
+     * Inner static class: BookBuilder
+     */
+    public static class BookBuilder {
+        private String name;
+        private String authorName;
+        private String description;
+        private String genre;
+        private double price;
+        private int noOfCopiedSold;
+
+        public BookBuilder(String name, String authorName, String description, String genre, double price, int noOfCopiedSold) {
+            this.name = name;
+            this.authorName = authorName;
+            this.description = description;
+            this.genre = genre;
+            this.price = price;
+            this.noOfCopiedSold = noOfCopiedSold;
+        }
+
+        public Book build() {
+            return new Book(this);
+        }
     }
 }

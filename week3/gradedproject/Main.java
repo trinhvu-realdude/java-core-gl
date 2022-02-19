@@ -2,7 +2,6 @@ package greatlearning.week3.gradedproject;
 
 import greatlearning.week3.gradedproject.implementation.LogImpl;
 import greatlearning.week3.gradedproject.implementation.UserImpl;
-import greatlearning.week3.gradedproject.model.User;
 import greatlearning.week3.gradedproject.thread.UserThread;
 
 import java.util.Scanner;
@@ -15,7 +14,7 @@ public class Main {
         System.out.println("-- MAGIC OF BOOKS --");
 
         // create and start log in application
-        LogImpl log = new LogImpl();
+        LogImpl log = LogImpl.getInstance();
         log.startLog();
 
         UserImpl userImpl = new UserImpl();
@@ -39,11 +38,7 @@ public class Main {
                     // Register
                     case "1" -> {
                         System.out.println("-- REGISTER --");
-
-                        User user = new User();
-                        userImpl.register(user);
-                        log.saveRegisterLog(user.getUserName());
-
+                        userImpl.register();
                         System.out.println("-- *-*-*-*-* --");
                     }
 

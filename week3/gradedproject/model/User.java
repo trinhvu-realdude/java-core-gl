@@ -16,6 +16,11 @@ public class User {
 
     }
 
+    public User(UserBuilder builder) {
+        this.userName = builder.userName;
+        this.password = builder.password;
+    }
+
     public int getId() {
         return id;
     }
@@ -28,24 +33,12 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public int getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(int emailId) {
-        this.emailId = emailId;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public ArrayList<Book> getNewBook() {
@@ -70,5 +63,19 @@ public class User {
 
     public void setCompleted(ArrayList<Book> completed) {
         this.completed = completed;
+    }
+
+    public static class UserBuilder {
+        private String userName;
+        private String password;
+
+        public UserBuilder(String userName, String password) {
+            this.userName = userName;
+            this.password = password;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

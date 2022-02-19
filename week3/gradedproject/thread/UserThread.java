@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class UserThread {
     static Scanner sc = new Scanner(System.in);
 
-    static LogImpl log = new LogImpl();
+    static LogImpl log = LogImpl.getInstance();
 
     public Runnable user = () -> {
         UserImpl userImpl = new UserImpl();

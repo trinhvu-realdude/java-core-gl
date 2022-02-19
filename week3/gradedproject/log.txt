@@ -1,31 +1,48 @@
-Fri Feb 18 14:50:47 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 14:50:49 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 14:50:54 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 14:50:49 ICT 2022: [Logout] - User admin logout 
-Fri Feb 18 14:50:47 ICT 2022: [Registration] - User trinh register successfully 
-Fri Feb 18 14:50:49 ICT 2022: [Login] - User trinh login successfully 
-Fri Feb 18 14:50:54 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 14:50:54 ICT 2022: [Book] - User trinh search book id 6 
-Fri Feb 18 14:50:54 ICT 2022: [Book] - User trinh add book id 6 to the new book list 
-Fri Feb 18 15:15:39 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 15:15:41 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 15:15:47 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 15:23:45 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 15:23:46 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 15:23:51 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 15:30:52 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 15:30:53 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 15:58:29 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 15:58:30 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 16:00:40 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 16:00:42 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 16:01:29 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 16:01:29 ICT 2022: [Registration] - User null register successfully 
-Fri Feb 18 16:01:38 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 16:01:45 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 16:02:46 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 16:02:47 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 16:02:52 ICT 2022: [Book] - Display list of books 
-Fri Feb 18 16:52:07 ICT 2022: [Initiated] - Start the application 
-Fri Feb 18 16:52:35 ICT 2022: [Login] - User admin login successfully 
-Fri Feb 18 16:52:39 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 14:08:31 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 14:08:31 ICT 2022: [Login] - User trinh login successfully 
+Sat Feb 19 14:08:31 ICT 2022: [Book] - User trinh search book id 2 
+Sat Feb 19 14:08:31 ICT 2022: [Book] - User trinh add book id 2 to the new book list 
+Sat Feb 19 14:08:31 ICT 2022: [Book] - User trinh display the new book list 
+Sat Feb 19 14:08:31 ICT 2022: [Logout] - User trinh logout 
+Sat Feb 19 14:08:31 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 14:22:19 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 14:22:19 ICT 2022: [Registration] - User trinh register successfully 
+Sat Feb 19 14:22:19 ICT 2022: [Login] - User trinh login successfully 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - User trinh search book id 5 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - User trinh add book id 5 to the new book list 
+Sat Feb 19 14:22:19 ICT 2022: [Error] - List is empty 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 14:22:19 ICT 2022: [Logout] - User trinh logout 
+Sat Feb 19 14:22:19 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 14:22:19 ICT 2022: [Logout] - User admin logout 
+Sat Feb 19 14:22:19 ICT 2022: [Login] - User trinh login successfully 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 14:22:19 ICT 2022: [Book] - User trinh display the new book list 
+Sat Feb 19 14:22:19 ICT 2022: [Error] - List is empty 
+Sat Feb 19 14:22:19 ICT 2022: [Error] - List is empty 
+Sat Feb 19 14:22:19 ICT 2022: [Logout] - User trinh logout 
+Sat Feb 19 14:22:19 ICT 2022: [Terminated] - Exit the application 
+Sat Feb 19 15:06:02 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 15:06:02 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 15:06:02 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:14:04 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 15:14:04 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 15:14:04 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:16:37 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 15:16:37 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 15:16:48 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 15:16:48 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 15:16:48 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:26:26 ICT 2022: [Initiated] - Start the application 
+Sat Feb 19 15:26:26 ICT 2022: [Login] - User admin login successfully 
+Sat Feb 19 15:26:26 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:26:26 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:26:26 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:26:26 ICT 2022: [Logout] - User admin logout 
+Sat Feb 19 15:26:26 ICT 2022: [Error] - Wrong credentials 
+Sat Feb 19 15:26:26 ICT 2022: [Registration] - User trinh register successfully 
+Sat Feb 19 15:26:26 ICT 2022: [Login] - User trinh login successfully 
+Sat Feb 19 15:26:26 ICT 2022: [Book] - Display list of books 
+Sat Feb 19 15:26:26 ICT 2022: [Logout] - User trinh logout 
+Sat Feb 19 15:26:26 ICT 2022: [Terminated] - Exit the application 

@@ -6,12 +6,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Class: LogImpl
+ * <p>
+ * Applied Bill Pugh Singleton patterns
+ */
 public class LogImpl {
 
     private Date dateTime;
     private BufferedWriter bufferedWriter;
 
-    public LogImpl() {
+    /**
+     * Inner static class: LogHelper
+     * <p>
+     * Create a final instance inside class LogHelper
+     */
+    private static class LogHelper {
+        static final LogImpl INSTANCE = new LogImpl();
+    }
+
+    /**
+     * Private constructor: LogImpl
+     */
+    private LogImpl() {
         try {
             this.dateTime = new Date();
 
@@ -26,6 +43,15 @@ public class LogImpl {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Function: getInstance
+     *
+     * @return instance is defined in class LogHelper
+     */
+    public static LogImpl getInstance() {
+        return LogHelper.INSTANCE;
     }
 
     public void startLog() {

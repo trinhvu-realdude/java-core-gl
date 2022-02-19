@@ -4,11 +4,10 @@ import greatlearning.week3.gradedproject.model.Admin;
 
 public class UserSeed {
 
-    private Admin admin = new Admin();
+    private Admin admin;
 
     public UserSeed() {
-        admin.setUserName("admin");
-        admin.setPassword("");
+        admin = new Admin.AdminBuilder("admin", "").build();
     }
 
     public Admin getAdmin() {

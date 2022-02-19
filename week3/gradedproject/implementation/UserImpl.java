@@ -11,11 +11,12 @@ public class UserImpl {
 
     private static final ArrayList<User> users = new ArrayList<User>();
 
-    public void register(User user) {
+    public void register() {
         Scanner sc = new Scanner(System.in);
 
-        try {
+        LogImpl log = LogImpl.getInstance();
 
+        try {
             System.out.println("Enter your username: ");
             String userName = sc.nextLine().trim();
 
@@ -26,12 +27,13 @@ public class UserImpl {
                 throw new DuplicateElementException();
             }
 
-            user.setUserName(userName);
-            user.setPassword(password);
+            User user = new User.UserBuilder(userName, password).build();
 
             users.add(user);
 
             System.out.println("Register successfully!");
+
+            log.saveRegisterLog(user.getUserName());
         } catch (DuplicateElementException e) {
             System.err.println("Username already existed! Please try again");
         }
@@ -53,7 +55,7 @@ public class UserImpl {
     }
 
     public boolean isDuplicated(String userName) {
-        for (User user: users) {
+        for (User user : users) {
             if (user.getUserName().equals(userName)) {
                 return true;
             }

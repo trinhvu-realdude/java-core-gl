@@ -12,7 +12,7 @@ public class MagicOfBooks {
 
     static Scanner sc = new Scanner(System.in);
 
-    static LogImpl log = new LogImpl();
+    static LogImpl log = LogImpl.getInstance();
 
     private static BookSeed books = new BookSeed();
 
@@ -349,10 +349,13 @@ public class MagicOfBooks {
         return false;
     }
 
+    /**
+     * Function: add
+     *
+     * @param user Admin adds a new book to the list
+     */
     public static void add(User user) {
         try {
-            Book book = new Book();
-
             System.out.println("Enter the book name: ");
             String name = sc.nextLine().trim();
 
@@ -375,21 +378,23 @@ public class MagicOfBooks {
                 throw new NegativeInputException();
             }
 
-            book.setName(name);
-            book.setAuthorName(authorName);
-            book.setDescription(description);
-            book.setGenre(genre);
-            book.setPrice(price);
-            book.setNoOfCopiedSold(noCopiedOfSold);
+            Book book = new Book.BookBuilder(name, authorName, description, genre, price, noCopiedOfSold).build();
 
             list.put(bookId, book);
 
             bookId++;
+
+            System.out.println("Add a new book successfully!");
         } catch (NumberFormatException | NegativeInputException e) {
             System.err.println("Please enter right format of number!");
         }
     }
 
+    /**
+     * Function: delete
+     *
+     * @param user Admin deletes a book from list
+     */
     public static void delete(User user) {
         try {
             System.out.println("Enter the book id you want to delete: ");
@@ -425,6 +430,11 @@ public class MagicOfBooks {
         }
     }
 
+    /**
+     * Function: update
+     *
+     * @param user Admin updates information of specific book
+     */
     public static void update(User user) {
         try {
             System.out.println("Which book do you want to update? (Press book id)");
@@ -457,12 +467,7 @@ public class MagicOfBooks {
                     throw new NegativeInputException();
                 }
 
-                list.get(id).setName(name);
-                list.get(id).setAuthorName(authorName);
-                list.get(id).setDescription(description);
-                list.get(id).setGenre(genre);
-                list.get(id).setPrice(price);
-                list.get(id).setNoOfCopiedSold(noCopiedOfSold);
+                list.get(id).setBook(name, authorName, description, genre, price, noCopiedOfSold);
 
                 System.out.println("Update successfully!");
 
@@ -474,6 +479,11 @@ public class MagicOfBooks {
         }
     }
 
+    /**
+     * Function: arrange
+     *
+     * @param user Admin arranges the list of books in some orders
+     */
     public static void arrange(User user) {
         HashMap<Integer, Book> cloneList = new HashMap<>(list);
 
@@ -522,10 +532,20 @@ public class MagicOfBooks {
         }
     }
 
+    /**
+     * Function: countTotalOfBook
+     *
+     * @param user Admin displays total count of the books
+     */
     public static void countTotalOfBook(User user) {
         System.out.println("Total count of the books is " + list.size());
     }
 
+    /**
+     * Function: displayAutobiographyBook
+     *
+     * @param user Admin displays the books with Autobiography genre
+     */
     public static void displayAutobiographyBook(User user) {
         for (Integer i : list.keySet()) {
             if (list.get(i).getGenre().equals("Autobiography")) {
