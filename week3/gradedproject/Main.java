@@ -2,6 +2,7 @@ package greatlearning.week3.gradedproject;
 
 import greatlearning.week3.gradedproject.implementation.LogImpl;
 import greatlearning.week3.gradedproject.implementation.UserImpl;
+import greatlearning.week3.gradedproject.model.User;
 import greatlearning.week3.gradedproject.thread.UserThread;
 
 import java.util.Scanner;
@@ -38,7 +39,21 @@ public class Main {
                     // Register
                     case "1" -> {
                         System.out.println("-- REGISTER --");
-                        userImpl.register();
+
+                        System.out.println("Enter your username: ");
+                        String userName = sc.nextLine().trim();
+
+                        System.out.println("Enter your password: ");
+                        String password = sc.nextLine().trim();
+
+                        User user = new User.UserBuilder(userName, password).build();
+
+                        userImpl.register(user);
+
+                        System.out.println("Register successfully!");
+
+                        log.saveRegisterLog(user.getUserName());
+
                         System.out.println("-- *-*-*-*-* --");
                     }
 

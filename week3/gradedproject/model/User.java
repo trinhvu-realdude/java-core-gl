@@ -2,6 +2,11 @@ package greatlearning.week3.gradedproject.model;
 
 import java.util.ArrayList;
 
+/**
+ * Class: User
+ *
+ * Applied Builder Pattern
+ */
 public class User {
 
     private int id;

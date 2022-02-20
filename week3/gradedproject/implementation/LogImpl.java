@@ -143,4 +143,13 @@ public class LogImpl {
             System.out.println(e.getMessage());
         }
     }
+
+    public void saveArrangeBookLog(String userName, String order) {
+        try {
+            this.bufferedWriter.write(dateTime + ": [Book] - User " + userName + " arrange the list in the " + order + " order \n");
+            this.bufferedWriter.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
