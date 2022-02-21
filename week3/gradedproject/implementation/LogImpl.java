@@ -32,7 +32,7 @@ public class LogImpl {
         try {
             this.dateTime = new Date();
 
-            String url = System.getProperty("user.dir") + "\\src\\greatlearning\\week3\\gradedproject\\log.txt";
+            String url = System.getProperty("user.dir") + "\\src\\gradedproject\\log.txt";
 
             File file = new File(url);
 

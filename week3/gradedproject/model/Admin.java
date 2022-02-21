@@ -16,5 +16,4 @@ public class Admin extends User {
             return new Admin(this);
         }
     }
-
 }

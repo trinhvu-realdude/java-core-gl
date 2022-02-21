@@ -14,11 +14,6 @@ class MagicOfBooksTest {
     MagicOfBooks test = new MagicOfBooks();
 
     @Test
-    void display() {
-
-    }
-
-    @Test
     public void search() {
         boolean actual = test.search(1);
         assertTrue(actual);
@@ -89,10 +84,6 @@ class MagicOfBooksTest {
         // Failed to add a book to completed list
         test.addCompleted(14, new User.UserBuilder("trinh", "123").build(), bookList);
         assertEquals(expected, bookList.size());
-    }
-
-    @Test
-    void displayPersonalList() {
     }
 
     @Test
@@ -173,25 +164,5 @@ class MagicOfBooksTest {
         // Update a book not existing in list
         actual = test.update(11, "Wizard", "Dr Strange", "so good", "Novel", 14.99, 456);
         assertFalse(actual);
-    }
-
-    @Test
-    void arrangeLowToHigh() {
-    }
-
-    @Test
-    void arrangeHighToLow() {
-    }
-
-    @Test
-    void arrangeBestSelling() {
-    }
-
-    @Test
-    void countTotalOfBook() {
-    }
-
-    @Test
-    void displayAutobiographyBook() {
     }
 }

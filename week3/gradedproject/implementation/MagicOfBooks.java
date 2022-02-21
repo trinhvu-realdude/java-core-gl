@@ -33,6 +33,14 @@ public class MagicOfBooks {
      *
      * @param id Search book by id, then execute a sub menu to add book to new
      *           book, favourite, completed
+     * @requires id > 0
+     * @testcases TCs ((actual) -> expected):
+     * search(1) -> true,
+     * search(3) -> true,
+     * search(5) -> true,
+     * search(7) -> true,
+     * search(10) -> true,
+     * search(11) -> false,
      */
     public boolean search(int id) {
         if (list.get(id) == null) {
@@ -59,6 +67,9 @@ public class MagicOfBooks {
      * @param id
      * @param user
      * @param newBookList Add book to user's new book list
+     * @testcases TCs ((actual) -> expected):
+     * addNewBook(1, user, bookList) -> 4
+     * addNewBook(14, user, bookList) -> 4
      */
     public void addNewBook(int id, User user, ArrayList<Book> newBookList) {
         for (Integer i : list.keySet()) {
@@ -83,6 +94,9 @@ public class MagicOfBooks {
      * @param id
      * @param user
      * @param favouriteBookList Add book to user's favourite list
+     * @testcases TCs ((actual) -> expected):
+     * addFavourite(1, user, bookList) -> 4
+     * addFavourite(14, user, bookList) -> 4
      */
     public void addFavourite(int id, User user, ArrayList<Book> favouriteBookList) {
         for (Integer i : list.keySet()) {
@@ -106,6 +120,9 @@ public class MagicOfBooks {
      *
      * @param id
      * @param user Add book to user's completed list
+     * @testcases TCs ((actual) -> expected):
+     * addCompleted(1, user, bookList) -> 4
+     * addCompleted(14, user, bookList) -> 4
      */
     public void addCompleted(int id, User user, ArrayList<Book> completedBookList) {
         for (Integer i : list.keySet()) {
@@ -182,6 +199,9 @@ public class MagicOfBooks {
      * @return true if the list is empty and vice versa
      * <p>
      * Check list whether this is empty
+     * @testcases TCs ((actual) -> expected)
+     * isEmpty(new bookList) -> true,
+     * isEmpty(bookList.add(new Book)) -> false
      */
     public boolean isEmpty(ArrayList<Book> bookList) {
         int check = 0;
@@ -207,6 +227,9 @@ public class MagicOfBooks {
      * @return true if the book added to list already existed and vice versa
      * <p>
      * Check duplicated book in list
+     * @testcases TCs ((actual) -> expected)
+     * isDuplicated(book1, bookList.add(book1)) -> true,
+     * isDuplicated(book2, bookList.add(book1)) -> false
      */
     public boolean isDuplicated(Book book, ArrayList<Book> bookList) {
         for (Book value : bookList) {
@@ -227,6 +250,10 @@ public class MagicOfBooks {
      *
      * @param id
      * @param book Admin adds a new book to the list
+     * @testcases TCs ((actual) -> expected)
+     * add(3, new Book) -> false,
+     * add(4, new Book) -> false,
+     * add(11, new Book) -> true
      */
     public boolean add(int id, Book book) {
         for (Integer i : list.keySet()) {
@@ -242,6 +269,11 @@ public class MagicOfBooks {
      * Function: delete
      *
      * @param id Admin deletes a book from list
+     * @testcases TCs ((actual) -> expected)
+     * delete(2) -> true,
+     * delete(9) -> true,
+     * delete(11) -> false,
+     * delete(2) -> false
      */
     public boolean delete(int id) {
         if (list.get(id) != null) {
@@ -258,6 +290,10 @@ public class MagicOfBooks {
      * Function: update
      *
      * @param id Admin updates information of specific book
+     * @testcases TCs ((actual) -> expected)
+     * update(10, new attributes of book) -> true,
+     * update(8, new attributes of book) -> true,
+     * update(11, new attributes of book) -> false
      */
     public boolean update(int id, String name, String authorName, String description, String genre, double price, int noCopiedOfSold) {
         if (list.get(id) != null) {
