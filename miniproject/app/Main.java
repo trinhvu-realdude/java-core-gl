@@ -119,7 +119,9 @@ public class Main {
         String confirmPassword = sc.nextLine().trim();
 
         if (password.equals(confirmPassword)) {
-            User user = new User(userName, password, roleId);
+//            User user = new User(userName, password, roleId);
+
+            User user = new User.UserBuilder(userName, password).setRoleId(roleId).build();
 
             userDAO.register(user);
         } else {

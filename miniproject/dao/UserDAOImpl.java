@@ -37,7 +37,8 @@ public class UserDAOImpl implements UserDAO {
 
                     System.out.println("Register successfully!");
                 } catch (SQLException e) {
-                    System.err.println("Data error!");
+//                    System.err.println("Data error!");
+                    e.printStackTrace();
                 }
             } else {
                 throw new DuplicateElementException();
@@ -71,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
                 String userName = rs.getString("userName");
                 String password = rs.getString("password");
                 int roleId = rs.getInt("roleId");
-                users.add(new User(id, userName, password, roleId));
+                users.add(new User.UserBuilder(userName, password).setId(id).setRoleId(roleId).build());
             }
         } catch (SQLException e) {
             System.err.println("Data error!");
