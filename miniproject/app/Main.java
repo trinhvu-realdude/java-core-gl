@@ -56,10 +56,10 @@ public class Main {
 
                     try {
                         System.out.println("Username:");
-                        String userName = sc.nextLine();
+                        String userName = sc.nextLine().trim();
 
                         System.out.println("Password:");
-                        String password = sc.nextLine();
+                        String password = sc.nextLine().trim();
 
                         User user = userDAO.login(userName, password);
 
@@ -119,7 +119,6 @@ public class Main {
         String confirmPassword = sc.nextLine().trim();
 
         if (password.equals(confirmPassword)) {
-//            User user = new User(userName, password, roleId);
 
             User user = new User.UserBuilder(userName, password).setRoleId(roleId).build();
 

@@ -37,8 +37,7 @@ public class UserDAOImpl implements UserDAO {
 
                     System.out.println("Register successfully!");
                 } catch (SQLException e) {
-//                    System.err.println("Data error!");
-                    e.printStackTrace();
+                    System.err.println("Failed to register!");
                 }
             } else {
                 throw new DuplicateElementException();
