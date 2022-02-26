@@ -73,6 +73,9 @@ public class CustomerThread {
 
                     Bill bill;
 
+                    int quantity = 0;
+                    double totalPrice = 0;
+
                     try {
                         while (true) {
                             System.out.println("Enter the item id you want to order:");
@@ -84,6 +87,7 @@ public class CustomerThread {
 
                             System.out.println("Enter the number of plates per item:");
                             int numberOfPlates = Integer.parseInt(sc.nextLine().trim());
+                            quantity++;
 
                             if (itemId <= items.size()) {
                                 Item item = itemDAO.getItemById(itemId);
@@ -94,6 +98,7 @@ public class CustomerThread {
 
                                 System.out.println("Please confirm this item! (y/n)");
                                 String confirm = sc.nextLine().trim();
+                                totalPrice += item.getPrice() * numberOfPlates;
 
                                 if (confirm.equals("y")) {
 
@@ -102,9 +107,13 @@ public class CustomerThread {
 
                                     if (check.equals("n")) {
                                         order = new Order();
+//                                        orderDAO.createOrder(order);
 
                                         bill = new Bill(order.getId(), itemId);
-                                        billDAO.createBill(bill);
+//                                        billDAO.createBill(bill);
+
+                                        System.out.println("Quantity: " + quantity);
+                                        System.out.println("Total: " + String.format("%.2f", totalPrice));
 
                                         break;
                                     }

@@ -6,16 +6,14 @@ public class Order {
     private int id;
     private int quantity;
     private double totalPrice;
-    private String status;
-    private Date orderDate;
+    private String status = "Processing";
+    private Date orderDate = new Date();
     private int userId;
 
-    public Order(int id, int quantity, double totalPrice, String status, Date orderDate, int userId) {
+    public Order(int id, int quantity, double totalPrice, int userId) {
         this.id = id;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
-        this.status = status;
-        this.orderDate = orderDate;
         this.userId = userId;
     }
 
