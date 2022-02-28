@@ -1,27 +1,35 @@
 package greatlearning.miniproject.thread;
 
-import greatlearning.miniproject.dao.BillDAOImpl;
-import greatlearning.miniproject.dao.ItemDAOImpl;
-import greatlearning.miniproject.dao.OrderDAOImpl;
+import greatlearning.miniproject.model.User;
+import greatlearning.miniproject.service.BillService;
+import greatlearning.miniproject.service.ItemService;
+import greatlearning.miniproject.service.OrderService;
 import greatlearning.miniproject.exception.NegativeInputException;
 import greatlearning.miniproject.model.Bill;
 import greatlearning.miniproject.model.Item;
 import greatlearning.miniproject.model.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerThread {
     Scanner sc = new Scanner(System.in);
 
+    private User user;
+
+    public CustomerThread(User user) {
+        this.user = user;
+    }
+
     public Runnable customer = () -> {
         System.out.println("-- CUSTOMER OPTION --");
 
         boolean isStop = false;
 
-        ItemDAOImpl itemDAO = ItemDAOImpl.getInstance();
-        OrderDAOImpl orderDAO = OrderDAOImpl.getInstance();
-        BillDAOImpl billDAO = BillDAOImpl.getInstance();
+        ItemService itemService = ItemService.getInstance();
+        OrderService orderService = OrderService.getInstance();
+        BillService billService = BillService.getInstance();
 
         while (!isStop) {
             System.out.println("1. Press 1 to display all items available");
@@ -36,7 +44,7 @@ public class CustomerThread {
 
                 case "1" -> {
                     System.out.println("-- LIST OF ITEMS --");
-                    List<Item> items = itemDAO.getAllItems();
+                    List<Item> items = itemService.getAllItems();
 
                     for (Item item : items) {
                         System.out.println(item.getId() + ".\t" + item.getName() + "\t($" + item.getPrice() + ")");
@@ -51,7 +59,7 @@ public class CustomerThread {
                     System.out.println("Please enter the item name you want to search:");
                     String search = sc.nextLine().trim();
 
-                    List<Item> result = itemDAO.searchItemsByName(search);
+                    List<Item> result = itemService.searchItemsByName(search);
 
                     if (result.size() == 0 || search.equals("")) {
                         System.out.println("No search results found!");
@@ -67,11 +75,8 @@ public class CustomerThread {
                 case "3" -> {
                     System.out.println("-- CREATE AN ORDER --");
 
-                    List<Item> items = itemDAO.getAllItems();
-
-                    Order order;
-
-                    Bill bill;
+                    List<Item> items = itemService.getAllItems();
+                    List<Integer> itemIdList = new ArrayList<>();
 
                     int quantity = 0;
                     double totalPrice = 0;
@@ -81,16 +86,17 @@ public class CustomerThread {
                             System.out.println("Enter the item id you want to order:");
                             int itemId = Integer.parseInt(sc.nextLine().trim());
 
-                            if (itemId <= 0) {
+                            System.out.println("Enter the number of plates per item:");
+                            int numberOfPlates = Integer.parseInt(sc.nextLine().trim());
+
+                            if (itemId <= 0 || numberOfPlates <= 0) {
                                 throw new NegativeInputException();
                             }
 
-                            System.out.println("Enter the number of plates per item:");
-                            int numberOfPlates = Integer.parseInt(sc.nextLine().trim());
                             quantity++;
 
                             if (itemId <= items.size()) {
-                                Item item = itemDAO.getItemById(itemId);
+                                Item item = itemService.getItemById(itemId);
 
                                 System.out.println("-> " + numberOfPlates + " plates of "
                                         + item.getName() + " ($"
@@ -99,6 +105,7 @@ public class CustomerThread {
                                 System.out.println("Please confirm this item! (y/n)");
                                 String confirm = sc.nextLine().trim();
                                 totalPrice += item.getPrice() * numberOfPlates;
+                                itemIdList.add(itemId);
 
                                 if (confirm.equals("y")) {
 
@@ -106,14 +113,11 @@ public class CustomerThread {
                                     String check = sc.nextLine().trim();
 
                                     if (check.equals("n")) {
-                                        order = new Order();
-//                                        orderDAO.createOrder(order);
+                                        Order order = new Order(quantity, totalPrice, user.getId());
+                                        int orderId = orderService.createOrder(order);
 
-                                        bill = new Bill(order.getId(), itemId);
-//                                        billDAO.createBill(bill);
-
-                                        System.out.println("Quantity: " + quantity);
-                                        System.out.println("Total: " + String.format("%.2f", totalPrice));
+                                        Bill bill = new Bill(orderId, itemIdList);
+                                        billService.createBill(bill);
 
                                         break;
                                     }
@@ -134,7 +138,8 @@ public class CustomerThread {
                 }
 
                 case "4" -> {
-                    System.out.println("Bill");
+                    System.out.println("-- DISPLAY BILLS --");
+
                 }
 
                 case "0" -> {

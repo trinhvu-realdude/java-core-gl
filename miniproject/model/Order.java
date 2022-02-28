@@ -10,15 +10,10 @@ public class Order {
     private Date orderDate = new Date();
     private int userId;
 
-    public Order(int id, int quantity, double totalPrice, int userId) {
-        this.id = id;
+    public Order(int quantity, double totalPrice, int userId) {
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.userId = userId;
-    }
-
-    public Order() {
-
     }
 
     public int getId() {

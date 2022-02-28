@@ -1,6 +1,6 @@
 package greatlearning.miniproject.app;
 
-import greatlearning.miniproject.dao.UserDAOImpl;
+import greatlearning.miniproject.service.UserService;
 import greatlearning.miniproject.exception.WrongCredentialsException;
 import greatlearning.miniproject.model.User;
 import greatlearning.miniproject.thread.AdminThread;
@@ -12,7 +12,7 @@ public class Main {
 
     static Scanner sc = new Scanner(System.in);
 
-    static UserDAOImpl userDAO = UserDAOImpl.getInstance();
+    static UserService userService = UserService.getInstance();
 
     public static void main(String[] args) {
 
@@ -61,7 +61,7 @@ public class Main {
                         System.out.println("Password:");
                         String password = sc.nextLine().trim();
 
-                        User user = userDAO.login(userName, password);
+                        User user = userService.login(userName, password);
 
                         if (user != null) {
 
@@ -82,7 +82,7 @@ public class Main {
                                 System.out.println("Login successfully");
                                 System.out.println("-- Hi, " + user.getUserName() + "! --");
 
-                                CustomerThread customerThread = new CustomerThread();
+                                CustomerThread customerThread = new CustomerThread(user);
                                 Thread customer = new Thread(customerThread.customer);
                                 customer.setName("customer");
                                 customer.start();
@@ -122,7 +122,7 @@ public class Main {
 
             User user = new User.UserBuilder(userName, password).setRoleId(roleId).build();
 
-            userDAO.register(user);
+            userService.register(user);
         } else {
             System.out.println("Please try again!");
         }

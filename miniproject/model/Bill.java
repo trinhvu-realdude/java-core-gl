@@ -1,13 +1,15 @@
 package greatlearning.miniproject.model;
 
+import java.util.List;
+
 public class Bill {
     private int id;
     private int orderId;
-    private int itemId;
+    private List<Integer> itemIdList;
 
-    public Bill(int orderId, int itemId) {
+    public Bill(int orderId, List<Integer> itemIdList) {
         this.orderId = orderId;
-        this.itemId = itemId;
+        this.itemIdList = itemIdList;
     }
 
     public int getId() {
@@ -26,11 +28,11 @@ public class Bill {
         this.orderId = orderId;
     }
 
-    public int getItemId() {
-        return itemId;
+    public List<Integer> getItemIdList() {
+        return itemIdList;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setItemId(List<Integer> itemIdList) {
+        this.itemIdList = itemIdList;
     }
 }

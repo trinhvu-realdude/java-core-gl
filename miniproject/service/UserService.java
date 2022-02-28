@@ -1,5 +1,6 @@
-package greatlearning.miniproject.dao;
+package greatlearning.miniproject.service;
 
+import greatlearning.miniproject.dao.UserDAO;
 import greatlearning.miniproject.dbconnect.DBConnect;
 import greatlearning.miniproject.exception.DuplicateElementException;
 import greatlearning.miniproject.model.User;
@@ -8,17 +9,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
+public class UserService implements UserDAO {
     private Connection connection = DBConnect.getConnection();
 
     private static class UserDAOHelper {
-        private static final UserDAOImpl INSTANCE = new UserDAOImpl();
+        private static final UserService INSTANCE = new UserService();
     }
 
-    private UserDAOImpl() {
+    private UserService() {
     }
 
-    public static UserDAOImpl getInstance() {
+    public static UserService getInstance() {
         return UserDAOHelper.INSTANCE;
     }
 

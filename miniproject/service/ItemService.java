@@ -1,5 +1,6 @@
-package greatlearning.miniproject.dao;
+package greatlearning.miniproject.service;
 
+import greatlearning.miniproject.dao.ItemDAO;
 import greatlearning.miniproject.dbconnect.DBConnect;
 import greatlearning.miniproject.model.Item;
 
@@ -7,17 +8,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAOImpl implements ItemDAO {
+public class ItemService implements ItemDAO {
     private Connection connection = DBConnect.getConnection();
 
     private static class ItemDAOHelper {
-        private static final ItemDAOImpl INSTANCE = new ItemDAOImpl();
+        private static final ItemService INSTANCE = new ItemService();
     }
 
-    private ItemDAOImpl() {
+    private ItemService() {
     }
 
-    public static ItemDAOImpl getInstance() {
+    public static ItemService getInstance() {
         return ItemDAOHelper.INSTANCE;
     }
 

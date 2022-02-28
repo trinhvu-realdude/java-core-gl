@@ -4,5 +4,5 @@ import greatlearning.miniproject.model.Order;
 
 public interface OrderDAO {
 
-    void createOrder(Order order);
+    int createOrder(Order order);
 }
