@@ -6,6 +6,7 @@ import greatlearning.miniproject.model.Item;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemService implements ItemDAO {
@@ -90,5 +91,33 @@ public class ItemService implements ItemDAO {
         }
 
         return item;
+    }
+
+    @Override
+    public HashMap<Integer, Item> getItemsByOrderId(int orderId) {
+        HashMap<Integer, Item> items = new HashMap<>();
+
+        try {
+            String sql = "SELECT od.id, i.id as itemId, i.name, i.price, od.numberOfPlates " +
+                    "FROM orders o \n" +
+                    "INNER JOIN order_details od, items i \n" +
+                    "WHERE o.id = ? \n" +
+                    "AND o.id = od.orderId \n" +
+                    "AND i.id = od.itemId";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int itemId = rs.getInt("itemId");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                items.put(id, new Item(itemId, name, price));
+            }
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return items;
     }
 }

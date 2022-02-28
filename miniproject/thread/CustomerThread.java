@@ -1,15 +1,12 @@
 package greatlearning.miniproject.thread;
 
-import greatlearning.miniproject.model.User;
-import greatlearning.miniproject.service.BillService;
+import greatlearning.miniproject.model.*;
 import greatlearning.miniproject.service.ItemService;
 import greatlearning.miniproject.service.OrderService;
 import greatlearning.miniproject.exception.NegativeInputException;
-import greatlearning.miniproject.model.Bill;
-import greatlearning.miniproject.model.Item;
-import greatlearning.miniproject.model.Order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,7 +26,6 @@ public class CustomerThread {
 
         ItemService itemService = ItemService.getInstance();
         OrderService orderService = OrderService.getInstance();
-        BillService billService = BillService.getInstance();
 
         while (!isStop) {
             System.out.println("1. Press 1 to display all items available");
@@ -42,6 +38,7 @@ public class CustomerThread {
 
             switch (option) {
 
+                // Display all items available
                 case "1" -> {
                     System.out.println("-- LIST OF ITEMS --");
                     List<Item> items = itemService.getAllItems();
@@ -53,6 +50,7 @@ public class CustomerThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Search the item
                 case "2" -> {
                     System.out.println("-- SEARCH ITEM --");
 
@@ -72,11 +70,13 @@ public class CustomerThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Create an order
                 case "3" -> {
                     System.out.println("-- CREATE AN ORDER --");
 
                     List<Item> items = itemService.getAllItems();
                     List<Integer> itemIdList = new ArrayList<>();
+                    List<Integer> numberOfPlatesList = new ArrayList<>();
 
                     int quantity = 0;
                     double totalPrice = 0;
@@ -104,8 +104,10 @@ public class CustomerThread {
 
                                 System.out.println("Please confirm this item! (y/n)");
                                 String confirm = sc.nextLine().trim();
+
                                 totalPrice += item.getPrice() * numberOfPlates;
                                 itemIdList.add(itemId);
+                                numberOfPlatesList.add(numberOfPlates);
 
                                 if (confirm.equals("y")) {
 
@@ -116,8 +118,8 @@ public class CustomerThread {
                                         Order order = new Order(quantity, totalPrice, user.getId());
                                         int orderId = orderService.createOrder(order);
 
-                                        Bill bill = new Bill(orderId, itemIdList);
-                                        billService.createBill(bill);
+                                        OrderDetails orderDetails = new OrderDetails(orderId, itemIdList, numberOfPlatesList);
+                                        orderService.createOrderDetails(orderDetails);
 
                                         break;
                                     }
@@ -137,9 +139,22 @@ public class CustomerThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Display your bill
                 case "4" -> {
                     System.out.println("-- DISPLAY BILLS --");
+                    HashMap<Integer, Bill> bills = orderService.getBillByUserId(user.getId());
 
+                    for (Integer id : bills.keySet()) {
+                        System.out.println("[" + bills.get(id).getDate() + "] Bill ID: " + id + " (quantity: " + bills.get(id).getQuantity() + ")");
+                        for (Integer i : itemService.getItemsByOrderId(id).keySet()) {
+                            for (Integer numberOfPlates : orderService.getNumberOfPlatesById(i)) {
+                                System.out.println("- " + itemService.getItemsByOrderId(id).get(i).getName() + " ($" + itemService.getItemsByOrderId(id).get(i).getPrice() + "): " + numberOfPlates + " plates");
+                            }
+                        }
+                        System.out.println("-> Total: $" + bills.get(id).getTotal());
+                    }
+
+                    System.out.println("-- *-*-*-*-* --");
                 }
 
                 case "0" -> {

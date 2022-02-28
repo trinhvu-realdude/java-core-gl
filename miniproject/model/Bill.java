@@ -1,38 +1,39 @@
 package greatlearning.miniproject.model;
 
-import java.util.List;
+import java.util.Date;
 
 public class Bill {
-    private int id;
-    private int orderId;
-    private List<Integer> itemIdList;
+    private int quantity;
+    private double total;
+    private Date date;
 
-    public Bill(int orderId, List<Integer> itemIdList) {
-        this.orderId = orderId;
-        this.itemIdList = itemIdList;
+    public Bill(int quantity, double total, Date date) {
+        this.quantity = quantity;
+        this.total = total;
+        this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public double getTotal() {
+        return total;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setTotal(double total) {
+        this.total = total;
     }
 
-    public List<Integer> getItemIdList() {
-        return itemIdList;
+    public Date getDate() {
+        return date;
     }
 
-    public void setItemId(List<Integer> itemIdList) {
-        this.itemIdList = itemIdList;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
