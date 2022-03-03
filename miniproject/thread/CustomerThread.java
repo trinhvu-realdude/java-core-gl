@@ -20,14 +20,13 @@ public class CustomerThread {
     }
 
     public Runnable customer = () -> {
-        System.out.println("-- CUSTOMER OPTION --");
-
         boolean isStop = false;
 
         ItemService itemService = ItemService.getInstance();
         OrderService orderService = OrderService.getInstance();
 
         while (!isStop) {
+            System.out.println("-- CUSTOMER OPTION --");
             System.out.println("1. Press 1 to display all items available");
             System.out.println("2. Press 2 to search the item");
             System.out.println("3. Press 3 to create an order");
@@ -146,9 +145,11 @@ public class CustomerThread {
 
                     for (Integer id : bills.keySet()) {
                         System.out.println("[" + bills.get(id).getDate() + "] Bill ID: " + id + " (quantity: " + bills.get(id).getQuantity() + ")");
-                        for (Integer i : itemService.getItemsByOrderId(id).keySet()) {
-                            for (Integer numberOfPlates : orderService.getNumberOfPlatesById(i)) {
-                                System.out.println("- " + itemService.getItemsByOrderId(id).get(i).getName() + " ($" + itemService.getItemsByOrderId(id).get(i).getPrice() + "): " + numberOfPlates + " plates");
+                        for (Integer orderDetailId : itemService.getItemsByOrderId(id).keySet()) {
+                            for (Integer numberOfPlates : orderService.getNumberOfPlatesById(orderDetailId)) {
+                                System.out.println("- " + itemService.getItemsByOrderId(id).get(orderDetailId).getName()
+                                        + " ($" + itemService.getItemsByOrderId(id).get(orderDetailId).getPrice() + "): "
+                                        + numberOfPlates + " plates");
                             }
                         }
                         System.out.println("-> Total: $" + bills.get(id).getTotal());

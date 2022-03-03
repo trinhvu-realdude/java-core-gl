@@ -2,7 +2,9 @@ package greatlearning.miniproject.service;
 
 import greatlearning.miniproject.dao.ItemDAO;
 import greatlearning.miniproject.dbconnect.DBConnect;
+import greatlearning.miniproject.exception.DuplicateElementException;
 import greatlearning.miniproject.model.Item;
+import greatlearning.miniproject.model.Menu;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class ItemService implements ItemDAO {
     }
 
     @Override
-    public HashMap<Integer, Item> getItemsByOrderId(int orderId) {
+    public HashMap<Integer, Item> getItemsByOrderId(int orderDetailId) {
         HashMap<Integer, Item> items = new HashMap<>();
 
         try {
@@ -105,7 +107,7 @@ public class ItemService implements ItemDAO {
                     "AND o.id = od.orderId \n" +
                     "AND i.id = od.itemId";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, orderId);
+            ps.setInt(1, orderDetailId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -119,5 +121,90 @@ public class ItemService implements ItemDAO {
             System.err.println("Data error!");
         }
         return items;
+    }
+
+    @Override
+    public void addItem(Item item) {
+        try {
+            if (!isDuplicated(item.getName())) {
+                String sql = "INSERT INTO items (name, price) VALUES (?,?)";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(1, item.getName());
+                ps.setDouble(2, item.getPrice());
+                ps.executeUpdate();
+
+                System.out.println("Add new item successfully!");
+            } else {
+                throw new DuplicateElementException();
+            }
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        } catch (DuplicateElementException e) {
+            System.err.println("Item already existed! Try again.");;
+        }
+    }
+
+    @Override
+    public boolean updateItem(Item item) {
+        boolean update = false;
+        try {
+            String sql = "UPDATE items SET name = ?, price = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, item.getName());
+            ps.setDouble(2, item.getPrice());
+            ps.setInt(3, item.getId());
+            update = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return update;
+    }
+
+    @Override
+    public boolean deleteItem(Item item) {
+        boolean delete = false;
+        try {
+            String sql = "DELETE FROM items WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, item.getId());
+            delete = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return delete;
+    }
+
+    public List<String> getItemNameByMenuId(int menuId) {
+        List<String> itemNames = new ArrayList<>();
+        try {
+            String sql = "SELECT i.name AS itemName \n" +
+                    "FROM menu_details md \n" +
+                    "INNER JOIN menu m, items i \n" +
+                    "WHERE md.menuId = ? \n" +
+                    "AND md.itemId = i.id \n" +
+                    "AND md.menuId = m.id";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, menuId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("itemName");
+                itemNames.add(name);
+            }
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return itemNames;
+    }
+
+    public boolean isDuplicated(String name) {
+        List<Item> items = getAllItems();
+
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

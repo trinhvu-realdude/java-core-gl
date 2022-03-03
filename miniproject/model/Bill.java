@@ -6,11 +6,13 @@ public class Bill {
     private int quantity;
     private double total;
     private Date date;
+    private String status;
 
-    public Bill(int quantity, double total, Date date) {
+    public Bill(int quantity, double total, Date date, String status) {
         this.quantity = quantity;
         this.total = total;
         this.date = date;
+        this.status = status;
     }
 
     public int getQuantity() {
@@ -35,5 +37,13 @@ public class Bill {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

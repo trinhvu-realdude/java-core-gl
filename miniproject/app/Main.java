@@ -10,13 +10,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    static Scanner sc = new Scanner(System.in);
-
-    static UserService userService = UserService.getInstance();
-
     public static void main(String[] args) {
 
         System.out.println("-- SURABI BILLING SYSTEM --");
+
+        Scanner sc = new Scanner(System.in);
+
+        UserService userService = UserService.getInstance();
 
         boolean isStop = false;
 
@@ -31,21 +31,21 @@ public class Main {
 
                 case "1" -> {
                     System.out.println("-- REGISTRATION --");
-                    System.out.println("1. Press 1 to register as a admin");
-                    System.out.println("2. Press 2 to register as an customer");
 
-                    String registerOption = sc.nextLine().trim();
+                    System.out.println("Enter your username:");
+                    String userName = sc.nextLine().trim();
 
-                    if (registerOption.equals("1")) {
-                        // Admin registration
-                        System.out.println("-- ADMIN --");
+                    System.out.println("Enter your password:");
+                    String password = sc.nextLine().trim();
 
-                        registerFields(1);
-                    } else if (registerOption.equals("2")) {
-                        // Customer registration
-                        System.out.println("-- CUSTOMER --");
+                    System.out.println("Confirm your password:");
+                    String confirmPassword = sc.nextLine().trim();
 
-                        registerFields(2);
+                    if (password.equals(confirmPassword)) {
+
+                        User user = new User.UserBuilder(userName, password).setRoleId(2).build();
+
+                        userService.register(user);
                     } else {
                         System.out.println("Please try again!");
                     }
@@ -105,26 +105,6 @@ public class Main {
 
                 default -> System.out.println("Invalid option");
             }
-        }
-    }
-
-    public static void registerFields(int roleId) {
-        System.out.println("Enter your username:");
-        String userName = sc.nextLine().trim();
-
-        System.out.println("Enter your password:");
-        String password = sc.nextLine().trim();
-
-        System.out.println("Confirm your password:");
-        String confirmPassword = sc.nextLine().trim();
-
-        if (password.equals(confirmPassword)) {
-
-            User user = new User.UserBuilder(userName, password).setRoleId(roleId).build();
-
-            userService.register(user);
-        } else {
-            System.out.println("Please try again!");
         }
     }
 }

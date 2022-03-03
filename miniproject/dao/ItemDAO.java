@@ -14,4 +14,10 @@ public interface ItemDAO {
     Item getItemById(int itemId);
 
     HashMap<Integer, Item> getItemsByOrderId(int orderId);
+
+    void addItem(Item item);
+
+    boolean updateItem(Item item);
+
+    boolean deleteItem(Item item);
 }

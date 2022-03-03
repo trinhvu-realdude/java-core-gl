@@ -80,12 +80,14 @@ public class OrderService implements OrderDAO {
 
         try {
             String sql = "SELECT o.id AS orderId, " +
+                    "o.status AS status, " +
                     "o.quantity AS quantity, " +
                     "o.totalPrice AS total, " +
                     "o.orderDate AS date \n" +
                     "FROM orders o \n" +
                     "INNER JOIN users u, order_details od, items i \n" +
-                    "WHERE o.userId = ? \n" +
+                    "WHERE o.status = 'Processing' \n" +
+                    "AND o.userId = ? \n" +
                     "AND u.id = o.userId \n" +
                     "AND o.id = od.orderId \n" +
                     "AND i.id = od.itemId";
@@ -98,7 +100,8 @@ public class OrderService implements OrderDAO {
                 int quantity = rs.getInt("quantity");
                 double total = rs.getDouble("total");
                 java.util.Date date = rs.getDate("date");
-                bills.put(id, new Bill(quantity, total, date));
+                String status = rs.getString("status");
+                bills.put(id, new Bill(quantity, total, date, status));
             }
         } catch (SQLException e) {
             System.err.println("Data error!");
@@ -123,5 +126,58 @@ public class OrderService implements OrderDAO {
             System.err.println("Data error!");
         }
         return numberOfPlates;
+    }
+
+    @Override
+    public HashMap<Integer, Bill> getBillsByDate(java.sql.Date today) {
+        HashMap<Integer, Bill> bills = new HashMap<>();
+
+        try {
+            String sql = "SELECT o.id AS orderId, \n" +
+                    "o.quantity, o.status, \n" +
+                    "i.name AS item, " +
+                    "o.totalPrice AS total, " +
+                    "o.orderDate AS date\n" +
+                    "FROM orders o \n" +
+                    "INNER JOIN users u, order_details od, items i\n" +
+                    "WHERE o.orderDate = ? \n" +
+                    "AND u.id = o.userId \n" +
+                    "AND o.id = od.orderId\n" +
+                    "AND i.id = od.itemId";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDate(1, today);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("orderId");
+                int quantity = rs.getInt("quantity");
+                double total = rs.getDouble("total");
+                String status = rs.getString("status");
+                java.util.Date date = rs.getDate("date");
+                bills.put(id, new Bill(quantity, total, date, status));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return bills;
+    }
+
+    @Override
+    public double getTotalSaleByMonth(int month) {
+        double totalSale = 0;
+        try {
+            String sql = "SELECT sum(o.totalPrice) AS totalSale FROM orders o WHERE month(o.orderDate) = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, month);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                totalSale = rs.getDouble("totalSale");
+            }
+        } catch (SQLException e) {
+            System.err.println("Data error");
+        }
+        return totalSale;
     }
 }

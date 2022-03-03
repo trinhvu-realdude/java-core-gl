@@ -7,6 +7,7 @@ import greatlearning.miniproject.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UserService implements UserDAO {
@@ -60,6 +61,7 @@ public class UserService implements UserDAO {
         return null;
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
@@ -78,6 +80,33 @@ public class UserService implements UserDAO {
             System.err.println("Data error!");
         }
         return users;
+    }
+
+    @Override
+    public HashMap<Integer, String> getUserNameByOrderId(int orderId, java.sql.Date today) {
+        HashMap<Integer, String> userNames = new HashMap<>();
+
+        try {
+            String sql = "SELECT o.id, u.userName \n" +
+                    "FROM orders o \n" +
+                    "INNER JOIN users u " +
+                    "WHERE u.id = o.userId \n" +
+                    "AND o.id = ? \n" +
+                    "AND o.orderDate = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+            ps.setDate(2, today);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("userName");
+                userNames.put(id, userName);
+            }
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return userNames;
     }
 
     public boolean isDuplicated(String userName) {

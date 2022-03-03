@@ -1,6 +1,7 @@
 package greatlearning.miniproject.dao;
 
 import greatlearning.miniproject.model.Bill;
+import greatlearning.miniproject.model.Item;
 import greatlearning.miniproject.model.Order;
 import greatlearning.miniproject.model.OrderDetails;
 
@@ -16,4 +17,8 @@ public interface OrderDAO {
     HashMap<Integer, Bill> getBillByUserId(int userId);
 
     List<Integer> getNumberOfPlatesById(int id);
+
+    HashMap<Integer, Bill> getBillsByDate(java.sql.Date today);
+
+    double getTotalSaleByMonth(int month);
 }
