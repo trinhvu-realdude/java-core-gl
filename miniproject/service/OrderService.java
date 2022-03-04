@@ -3,6 +3,7 @@ package greatlearning.miniproject.service;
 import greatlearning.miniproject.dao.OrderDAO;
 import greatlearning.miniproject.dbconnect.DBConnect;
 import greatlearning.miniproject.model.Bill;
+import greatlearning.miniproject.model.Item;
 import greatlearning.miniproject.model.Order;
 import greatlearning.miniproject.model.OrderDetails;
 
@@ -179,5 +180,18 @@ public class OrderService implements OrderDAO {
             System.err.println("Data error");
         }
         return totalSale;
+    }
+
+    public boolean deleteItemInOrderDetails(Item item) {
+        boolean delete = false;
+        try {
+            String sql = "DELETE FROM order_details WHERE itemId = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, item.getId());
+            delete = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return delete;
     }
 }

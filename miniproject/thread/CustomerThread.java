@@ -121,6 +121,10 @@ public class CustomerThread {
                                         orderService.createOrderDetails(orderDetails);
 
                                         break;
+                                    } else if (check.equals("y")) {
+                                        System.out.println("-----------------");
+                                    } else {
+                                        System.out.println("Invalid input!");
                                     }
                                 } else {
                                     System.out.println("Please try again!");

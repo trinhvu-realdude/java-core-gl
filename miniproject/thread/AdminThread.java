@@ -63,7 +63,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
-                //
+                // Display total sale of this month
                 case "2" -> {
                     System.out.println("-- TOTAL SALE --");
 
@@ -78,10 +78,12 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Item management
                 case "3" -> {
                     menuItem();
                 }
 
+                // Menu management
                 case "4" -> {
                     menu();
                 }
@@ -98,6 +100,7 @@ public class AdminThread {
 
     public void menuItem() {
         ItemService itemService = ItemService.getInstance();
+        OrderService orderService = OrderService.getInstance();
 
         boolean isStop = false;
 
@@ -224,13 +227,13 @@ public class AdminThread {
                             String sure = sc.nextLine();
 
                             if (sure.equals("y")) {
+                                boolean deleteItemOrderDetails = orderService.deleteItemInOrderDetails(item);
+                                boolean deleteItemMenuDetails = itemService.deleteItemInMenuDetails(item);
                                 boolean deleteItem = itemService.deleteItem(item);
 
-                                if (deleteItem) {
-                                    System.out.println("Delete item successfully!");
-                                } else {
-                                    System.out.println("Failed to delete! Please try again.");
-                                }
+                                System.out.println((deleteItemOrderDetails || deleteItemMenuDetails && deleteItem)
+                                        ? "Delete item successfully!"
+                                        : "Failed to delete! Please try again.");
                             }
                         } else {
                             System.out.println("No item found! Pleas try again.");
@@ -387,12 +390,15 @@ public class AdminThread {
                                 i++;
                             }
                             Menu newMenu = new Menu(id, name);
-                            MenuDetails menuDetails = new MenuDetails(id, itemIdList);
-                            if (menuService.updateMenu(newMenu) && menuService.updateMenuDetails(menuDetails)) {
-                                System.out.println("Update menu successfully!");
-                            }else  {
-                                System.out.println("Failed to update! Please try again.");
+                            List<Integer> menuDetailsId = menuService.getMenuDetailsByMenuId(id);
+
+                            boolean update = false;
+
+                            for (int j = 0; j < menuDetailsId.size(); j++) {
+                                update = menuService.updateMenu(newMenu) && menuService.updateMenuDetails(menuDetailsId.get(j), itemIdList.get(j));
                             }
+
+                            System.out.println(update ? "Update menu successfully!" : "Failed to update! Please try again.");
                         }
                     } catch (NegativeInputException | NumberFormatException e) {
                         System.err.println("Please enter the right format of input!");
@@ -403,6 +409,36 @@ public class AdminThread {
 
                 case "4" -> {
                     System.out.println("-- DELETE MENU --");
+
+                    HashMap<Integer, Menu> menus = menuService.getAllMenus();
+
+                    try {
+                        System.out.println("Enter the menu id you want to delete:");
+                        int menuId = Integer.parseInt(sc.nextLine().trim());
+
+                        if (menuId <= 0) {
+                            throw new NegativeInputException();
+                        }
+
+                        if (menuId <= menus.size()) {
+                            Menu menu = menuService.getMenuById(menuId);
+
+                            System.out.println(menuId + ". " + menu.getName() + " menu:");
+                            for (String itemName : itemService.getItemNameByMenuId(menuId)) {
+                                System.out.println("- " + itemName);
+                            }
+
+                            System.out.println("Are you sure to delete this menu? (y/n)");
+                            String sure = sc.nextLine();
+
+                            if (sure.equals("y")) {
+                                System.out.println(menuService.deleteMenuDetails(menuId) && menuService.deleteMenu(menuId) ? "Delete item successfully!" : "Failed to delete! Please try again.");
+                            }
+                        }
+                    } catch (NegativeInputException | NumberFormatException e) {
+                        System.err.println("Please enter the right format of input!");
+                    }
+
 
                     System.out.println("-- *-*-*-*-* --");
                 }

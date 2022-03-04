@@ -174,6 +174,19 @@ public class ItemService implements ItemDAO {
         return delete;
     }
 
+    public boolean deleteItemInMenuDetails(Item item) {
+        boolean delete = false;
+        try {
+            String sql = "DELETE FROM menu_details WHERE itemId = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, item.getId());
+            delete = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Data error!");
+        }
+        return delete;
+    }
+
     public List<String> getItemNameByMenuId(int menuId) {
         List<String> itemNames = new ArrayList<>();
         try {
