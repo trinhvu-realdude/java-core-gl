@@ -3,30 +3,46 @@ package greatlearning.miniproject.service;
 import greatlearning.miniproject.dao.OrderDAO;
 import greatlearning.miniproject.dbconnect.DBConnect;
 import greatlearning.miniproject.model.Bill;
-import greatlearning.miniproject.model.Item;
 import greatlearning.miniproject.model.Order;
 import greatlearning.miniproject.model.OrderDetails;
 
 import java.sql.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class: OrderService implements OrderDAO interface
+ *
+ * Applied Bill Pugh Singleton Pattern for Order service
+ */
 public class OrderService implements OrderDAO {
     private Connection connection = DBConnect.getConnection();
 
+    /**
+     * Inner Static Class: OrderDAOHelper
+     */
     private static class OrderDAOHelper {
         private static final OrderService INSTANCE = new OrderService();
     }
 
     private OrderService() {
+        // private constructor
     }
 
+    /**
+     * Function: getInstance
+     * @return OrderDAOHelper.INSTANCE
+     */
     public static OrderService getInstance() {
         return OrderDAOHelper.INSTANCE;
     }
 
+    /**
+     * Function: createOrder
+     * @param order
+     * @return id of this.order after inserting it into orders table
+     */
     @Override
     public int createOrder(Order order) {
         int orderId = -1;
@@ -55,6 +71,11 @@ public class OrderService implements OrderDAO {
         return orderId;
     }
 
+    /**
+     * Function: createOrderDetails
+     * @param orderDetails
+     * Insert orderId, itemId, numberOfPlates into order_details table
+     */
     @Override
     public void createOrderDetails(OrderDetails orderDetails) {
         try {
@@ -75,6 +96,11 @@ public class OrderService implements OrderDAO {
         }
     }
 
+    /**
+     * Function: getBillByUserId
+     * @param userId
+     * @return a hash map with Integer key and Bill value
+     */
     @Override
     public HashMap<Integer, Bill> getBillByUserId(int userId) {
         HashMap<Integer, Bill> bills = new HashMap<>();
@@ -110,9 +136,15 @@ public class OrderService implements OrderDAO {
         return bills;
     }
 
+    /**
+     * Function: getNumberOfPlatesById
+     * @param id
+     * @return number of plates in a specific order_details row
+     */
     @Override
-    public List<Integer> getNumberOfPlatesById(int id) {
-        List<Integer> numberOfPlates = new ArrayList<>();
+    public int getNumberOfPlatesById(int id) {
+//        List<Integer> numberOfPlates = new ArrayList<>();
+        int numberOfPlates = 0;
         try {
             String sql = "SELECT numberOfPlates FROM order_details WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -120,8 +152,8 @@ public class OrderService implements OrderDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int number = rs.getInt("numberOfPlates");
-                numberOfPlates.add(number);
+                //                numberOfPlates.add(number);
+                numberOfPlates = rs.getInt("numberOfPlates");
             }
         } catch (SQLException e) {
             System.err.println("Data error!");
@@ -129,6 +161,11 @@ public class OrderService implements OrderDAO {
         return numberOfPlates;
     }
 
+    /**
+     * Function: getBillsByDate
+     * @param today
+     * @return a hash map with Integer key and Bill value
+     */
     @Override
     public HashMap<Integer, Bill> getBillsByDate(java.sql.Date today) {
         HashMap<Integer, Bill> bills = new HashMap<>();
@@ -164,6 +201,11 @@ public class OrderService implements OrderDAO {
         return bills;
     }
 
+    /**
+     * Function: getTotalSaleByMonth
+     * @param month
+     * @return total sale of in current month
+     */
     @Override
     public double getTotalSaleByMonth(int month) {
         double totalSale = 0;
@@ -182,12 +224,18 @@ public class OrderService implements OrderDAO {
         return totalSale;
     }
 
-    public boolean deleteItemInOrderDetails(Item item) {
+    /**
+     * Function: deleteItemInOrderDetails
+     * @param itemId
+     * @return true if deleting row where row have a specific itemId successfully, and vice versa
+     */
+    @Override
+    public boolean deleteItemInOrderDetails(int itemId) {
         boolean delete = false;
         try {
             String sql = "DELETE FROM order_details WHERE itemId = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, item.getId());
+            ps.setInt(1, itemId);
             delete = ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Data error!");

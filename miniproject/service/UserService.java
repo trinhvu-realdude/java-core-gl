@@ -10,20 +10,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class: UserService implements UserDAO interface
+ *
+ * Applied Bill Pugh Singleton Pattern for User service
+ */
 public class UserService implements UserDAO {
     private Connection connection = DBConnect.getConnection();
 
+    /**
+     * Inner Static Class: UserDAOHelper
+     *
+     * Create a new instance
+     */
     private static class UserDAOHelper {
         private static final UserService INSTANCE = new UserService();
     }
 
     private UserService() {
+        // private constructor
     }
 
+    /**
+     * Function: getInstance
+     *
+     * @return UserDAOHelper.INSTANCE
+     */
     public static UserService getInstance() {
         return UserDAOHelper.INSTANCE;
     }
 
+    /**
+     * Function: register
+     * @param user
+     * Insert a new user into users table in database
+     */
     @Override
     public void register(User user) {
         try {
@@ -49,6 +70,12 @@ public class UserService implements UserDAO {
         }
     }
 
+    /**
+     * Function: login
+     * @param userName
+     * @param password
+     * @return user if user exists in users table, null if this user is not found
+     */
     @Override
     public User login(String userName, String password) {
         List<User> users = getAllUsers();
@@ -61,6 +88,10 @@ public class UserService implements UserDAO {
         return null;
     }
 
+    /**
+     * Function: getAllUsers
+     * @return a list of all users in users table
+     */
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -82,6 +113,12 @@ public class UserService implements UserDAO {
         return users;
     }
 
+    /**
+     * Function: getUserNameByOrderId
+     * @param orderId
+     * @param today
+     * @return a hash map with Integer key and username of user value
+     */
     @Override
     public HashMap<Integer, String> getUserNameByOrderId(int orderId, java.sql.Date today) {
         HashMap<Integer, String> userNames = new HashMap<>();
@@ -109,6 +146,11 @@ public class UserService implements UserDAO {
         return userNames;
     }
 
+    /**
+     * Function: isDuplicated
+     * @param userName
+     * @return true if username already existed in users table, and vice versa
+     */
     public boolean isDuplicated(String userName) {
         List<User> users = getAllUsers();
 

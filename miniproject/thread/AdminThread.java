@@ -31,7 +31,7 @@ public class AdminThread {
             System.out.println("1. Press 1 to display all the bills generated today (" + today + ")");
             System.out.println("2. Press 2 to display the total sale from this month");
             System.out.println("3. Press 3 to open the items management menu");
-            System.out.println("4. Press 4 to open the bills management menu");
+            System.out.println("4. Press 4 to open the menu management");
             System.out.println("0. Press 0 to logout");
 
             String option = sc.nextLine();
@@ -47,11 +47,9 @@ public class AdminThread {
                     for (Integer id : bills.keySet()) {
                         System.out.println("[" + bills.get(id).getDate() + "] Bill ID: " + id + " (quantity: " + bills.get(id).getQuantity() + ")");
                         for (Integer orderDetailId : itemService.getItemsByOrderId(id).keySet()) {
-                            for (Integer numberOfPlates : orderService.getNumberOfPlatesById(orderDetailId)) {
-                                System.out.println("- " + itemService.getItemsByOrderId(id).get(orderDetailId).getName()
-                                        + " ($" + itemService.getItemsByOrderId(id).get(orderDetailId).getPrice() + "): "
-                                        + numberOfPlates + " plates");
-                            }
+                            System.out.println("- " + itemService.getItemsByOrderId(id).get(orderDetailId).getName()
+                                    + " ($" + itemService.getItemsByOrderId(id).get(orderDetailId).getPrice() + "): "
+                                    + orderService.getNumberOfPlatesById(orderDetailId) + " plates");
                         }
                         System.out.println("-> Total: $" + bills.get(id).getTotal());
                         System.out.println("-> Status: " + bills.get(id).getStatus());
@@ -116,6 +114,7 @@ public class AdminThread {
 
             switch (option) {
 
+                // Search item
                 case "1" -> {
                     System.out.println("-- SEARCH ITEM --");
 
@@ -135,6 +134,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Add item
                 case "2" -> {
                     System.out.println("-- ADD ITEM --");
 
@@ -159,6 +159,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Update item
                 case "3" -> {
                     System.out.println("-- UPDATE ITEM --");
 
@@ -202,6 +203,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Delete item
                 case "4" -> {
                     System.out.println("-- DELETE ITEM --");
 
@@ -227,11 +229,11 @@ public class AdminThread {
                             String sure = sc.nextLine();
 
                             if (sure.equals("y")) {
-                                boolean deleteItemOrderDetails = orderService.deleteItemInOrderDetails(item);
+                                boolean deleteItemOrderDetails = orderService.deleteItemInOrderDetails(itemId);
                                 boolean deleteItemMenuDetails = itemService.deleteItemInMenuDetails(item);
                                 boolean deleteItem = itemService.deleteItem(item);
 
-                                System.out.println((deleteItemOrderDetails || deleteItemMenuDetails && deleteItem)
+                                System.out.println(((deleteItemOrderDetails || deleteItemMenuDetails) && deleteItem)
                                         ? "Delete item successfully!"
                                         : "Failed to delete! Please try again.");
                             }
@@ -259,7 +261,7 @@ public class AdminThread {
 
         ItemService itemService = ItemService.getInstance();
 
-        MenuService menuService = new MenuService();
+        MenuService menuService = MenuService.getInstance();
 
         while (!isStop) {
             System.out.println("-- MENU --");
@@ -273,6 +275,7 @@ public class AdminThread {
 
             switch (option) {
 
+                // Display all menus
                 case "1" -> {
                     System.out.println("-- DISPLAY MENU --");
 
@@ -288,6 +291,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Create new menu
                 case "2" -> {
                     System.out.println("-- CREATE MENU --");
 
@@ -344,6 +348,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Update menu
                 case "3" -> {
                     System.out.println("-- UPDATE MENU --");
 
@@ -407,6 +412,7 @@ public class AdminThread {
                     System.out.println("-- *-*-*-*-* --");
                 }
 
+                // Delete menu
                 case "4" -> {
                     System.out.println("-- DELETE MENU --");
 
@@ -432,7 +438,9 @@ public class AdminThread {
                             String sure = sc.nextLine();
 
                             if (sure.equals("y")) {
-                                System.out.println(menuService.deleteMenuDetails(menuId) && menuService.deleteMenu(menuId) ? "Delete item successfully!" : "Failed to delete! Please try again.");
+                                System.out.println(menuService.deleteMenuDetails(menuId) || menuService.deleteMenu(menuId)
+                                        ? "Delete item successfully!"
+                                        : "Failed to delete! Please try again.");
                             }
                         }
                     } catch (NegativeInputException | NumberFormatException e) {

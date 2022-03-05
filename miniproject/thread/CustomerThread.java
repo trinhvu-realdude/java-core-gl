@@ -2,6 +2,7 @@ package greatlearning.miniproject.thread;
 
 import greatlearning.miniproject.model.*;
 import greatlearning.miniproject.service.ItemService;
+import greatlearning.miniproject.service.MenuService;
 import greatlearning.miniproject.service.OrderService;
 import greatlearning.miniproject.exception.NegativeInputException;
 
@@ -24,6 +25,7 @@ public class CustomerThread {
 
         ItemService itemService = ItemService.getInstance();
         OrderService orderService = OrderService.getInstance();
+        MenuService menuService = MenuService.getInstance();
 
         while (!isStop) {
             System.out.println("-- CUSTOMER OPTION --");
@@ -31,6 +33,7 @@ public class CustomerThread {
             System.out.println("2. Press 2 to search the item");
             System.out.println("3. Press 3 to create an order");
             System.out.println("4. Press 4 to display your bill");
+            System.out.println("5. Press 5 to display all menus of restaurant");
             System.out.println("0. Press 0 to logout");
 
             String option = sc.nextLine().trim();
@@ -150,13 +153,26 @@ public class CustomerThread {
                     for (Integer id : bills.keySet()) {
                         System.out.println("[" + bills.get(id).getDate() + "] Bill ID: " + id + " (quantity: " + bills.get(id).getQuantity() + ")");
                         for (Integer orderDetailId : itemService.getItemsByOrderId(id).keySet()) {
-                            for (Integer numberOfPlates : orderService.getNumberOfPlatesById(orderDetailId)) {
-                                System.out.println("- " + itemService.getItemsByOrderId(id).get(orderDetailId).getName()
-                                        + " ($" + itemService.getItemsByOrderId(id).get(orderDetailId).getPrice() + "): "
-                                        + numberOfPlates + " plates");
-                            }
+                            System.out.println("- " + itemService.getItemsByOrderId(id).get(orderDetailId).getName()
+                                    + " ($" + itemService.getItemsByOrderId(id).get(orderDetailId).getPrice() + "): "
+                                    + orderService.getNumberOfPlatesById(orderDetailId) + " plates");
                         }
                         System.out.println("-> Total: $" + bills.get(id).getTotal());
+                    }
+
+                    System.out.println("-- *-*-*-*-* --");
+                }
+
+                case "5" -> {
+                    System.out.println("-- DISPLAY MENU --");
+
+                    HashMap<Integer, Menu> menus = menuService.getAllMenus();
+
+                    for (Integer id : menus.keySet()) {
+                        System.out.println(id + ". " + menus.get(id).getName() + " menu:");
+                        for (String itemName : itemService.getItemNameByMenuId(id)) {
+                            System.out.println("- " + itemName);
+                        }
                     }
 
                     System.out.println("-- *-*-*-*-* --");

@@ -17,6 +17,31 @@ public class MenuService implements MenuDAO {
 
     private Connection connection = DBConnect.getConnection();
 
+    /**
+     * Inner Static Class: OrderDAOHelper
+     */
+    private static class MenuDAOHelper {
+        private static final MenuService INSTANCE = new MenuService();
+    }
+
+    private MenuService() {
+        // private constructor
+    }
+
+    /**
+     * Function: getInstance
+     * @return OrderDAOHelper.INSTANCE
+     */
+    public static MenuService getInstance() {
+        return MenuDAOHelper.INSTANCE;
+    }
+
+
+    /**
+     * Function: createMenu
+     * @param menu
+     * @return the id of this.menu after inserting it into menu table
+     */
     @Override
     public int createMenu(Menu menu) {
         int menuId = -1;
@@ -40,6 +65,11 @@ public class MenuService implements MenuDAO {
         return menuId;
     }
 
+    /**
+     * Function: createMenuDetails
+     * @param menuDetails
+     * Insert menuId, itemId into menu_details table
+     */
     @Override
     public void createMenuDetails(MenuDetails menuDetails) {
         try {
@@ -58,6 +88,10 @@ public class MenuService implements MenuDAO {
         }
     }
 
+    /**
+     * Function: getAllMenus
+     * @return a hash map with Integer key and Menu value
+     */
     @Override
     public HashMap<Integer, Menu> getAllMenus() {
         HashMap<Integer, Menu> menus = new HashMap<>();
@@ -77,6 +111,11 @@ public class MenuService implements MenuDAO {
         return menus;
     }
 
+    /**
+     * Function: getMenuById
+     * @param id
+     * @return a menu with a specific id
+     */
     @Override
     public Menu getMenuById(int id) {
         Menu menu = null;
@@ -96,6 +135,11 @@ public class MenuService implements MenuDAO {
         return menu;
     }
 
+    /**
+     * Function: updateMenu
+     * @param newMenu
+     * @return update information of a menu in table
+     */
     @Override
     public boolean updateMenu(Menu newMenu) {
         boolean update = false;
@@ -126,6 +170,11 @@ public class MenuService implements MenuDAO {
         return update;
     }
 
+    /**
+     * Function: getMenuDetailsByMenuId
+     * @param menuId
+     * @return a list of menu detail id
+     */
     @Override
     public List<Integer> getMenuDetailsByMenuId(int menuId) {
         List<Integer> menuDetails = new ArrayList<>();
@@ -145,6 +194,11 @@ public class MenuService implements MenuDAO {
         return menuDetails;
     }
 
+    /**
+     * Function: deleteMenu
+     * @param id
+     * @return true if delete a menu successfully and vice versa
+     */
     @Override
     public boolean deleteMenu(int id) {
         boolean delete = false;
@@ -159,6 +213,11 @@ public class MenuService implements MenuDAO {
         return delete;
     }
 
+    /**
+     * Function: deleteMenuDetails
+     * @param id
+     * @return true if delete a row in menu_details table existing input menuId
+     */
     @Override
     public boolean deleteMenuDetails(int id) {
         boolean delete = false;

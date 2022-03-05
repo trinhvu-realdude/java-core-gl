@@ -20,4 +20,8 @@ public interface ItemDAO {
     boolean updateItem(Item item);
 
     boolean deleteItem(Item item);
+
+    boolean deleteItemInMenuDetails(Item item);
+
+    List<String> getItemNameByMenuId(int menuId);
 }

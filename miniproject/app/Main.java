@@ -12,8 +12,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("-- SURABI BILLING SYSTEM --");
-
         Scanner sc = new Scanner(System.in);
 
         UserService userService = UserService.getInstance();
@@ -21,6 +19,7 @@ public class Main {
         boolean isStop = false;
 
         while (!isStop) {
+            System.out.println("-- SURABI BILLING SYSTEM --");
             System.out.println("1. Press 1 to register");
             System.out.println("2. Press 2 to login");
             System.out.println("0. Press 0 to exit");
@@ -29,6 +28,7 @@ public class Main {
 
             switch (option) {
 
+                // Registration
                 case "1" -> {
                     System.out.println("-- REGISTRATION --");
 
@@ -45,12 +45,14 @@ public class Main {
 
                         User user = new User.UserBuilder(userName, password).setRoleId(2).build();
 
+                        // Using register function of User service
                         userService.register(user);
                     } else {
                         System.out.println("Please try again!");
                     }
                 }
 
+                // Login
                 case "2" -> {
                     System.out.println("-- LOGIN --");
 
@@ -61,15 +63,16 @@ public class Main {
                         System.out.println("Password:");
                         String password = sc.nextLine().trim();
 
+                        // Using login function of User service
                         User user = userService.login(userName, password);
 
-                        if (user != null) {
+                        if (user != null) { // if result from login function is not equal null, this block is executed
 
-                            // Admin thread
+                            System.out.println("Login successfully");
+                            System.out.println("-- Hi, " + user.getUserName() + "! --");
+
+                            // Start Admin thread if roleId = 1
                             if (user.getRoleId() == 1) {
-                                System.out.println("Login successfully");
-                                System.out.println("-- Hi, " + user.getUserName() + "! --");
-
                                 AdminThread adminThread = new AdminThread();
                                 Thread admin = new Thread(adminThread.admin);
                                 admin.setName("admin");
@@ -77,18 +80,15 @@ public class Main {
                                 admin.join();
                             }
 
-                            // Customer thread
+                            // Start Customer thread if roleId = 2
                             if (user.getRoleId() == 2) {
-                                System.out.println("Login successfully");
-                                System.out.println("-- Hi, " + user.getUserName() + "! --");
-
                                 CustomerThread customerThread = new CustomerThread(user);
                                 Thread customer = new Thread(customerThread.customer);
                                 customer.setName("customer");
                                 customer.start();
                                 customer.join();
                             }
-                        } else {
+                        } else { // login function return null, throw new wrong credentials exception
                             throw new WrongCredentialsException();
                         }
                     } catch (WrongCredentialsException e) {
@@ -98,6 +98,7 @@ public class Main {
                     }
                 }
 
+                // Logout
                 case "0" -> {
                     isStop = true;
                     System.out.println("Goodbye, see you again!");

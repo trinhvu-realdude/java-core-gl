@@ -1,5 +1,10 @@
 package greatlearning.miniproject.model;
 
+/**
+ * Class: User
+ *
+ * Applied Builder Pattern for User model
+ */
 public class User {
     private int id;
     private String userName;
@@ -29,6 +34,7 @@ public class User {
         return roleId;
     }
 
+    // Inner static class UserBuilder
     public static class UserBuilder {
         private int id;
         private String userName;
