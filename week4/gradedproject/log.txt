@@ -1,0 +1,25 @@
+Sun Mar 06 16:08:08 ICT 2022: [Initiated] - Start the application 
+Sun Mar 06 16:08:08 ICT 2022: [Login] - User trinh login successfully 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - Display list of books 
+Sun Mar 06 16:08:08 ICT 2022: [Error] - Book not found 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh search book id 7 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh add book id 7 to the new book list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh display the new book list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh search book id 3 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh add book id 3 to the favourite book list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh display the new book list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User trinh display the favourite book list 
+Sun Mar 06 16:08:08 ICT 2022: [Logout] - User trinh logout 
+Sun Mar 06 16:08:08 ICT 2022: [Login] - User admin login successfully 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin add book id 12 to the main list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - Display list of books 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin delete book id 12 to the main list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin arrange the list in the low to high order 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin arrange the list in the high to low order 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin arrange the list in the best selling order 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin update book id 4 to the main list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin arrange the list in the best selling order 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - User admin add book id 13 to the main list 
+Sun Mar 06 16:08:08 ICT 2022: [Book] - Display list of books 
+Sun Mar 06 16:08:08 ICT 2022: [Logout] - User admin logout 
+Sun Mar 06 16:08:08 ICT 2022: [Terminated] - Exit the application 
