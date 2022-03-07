@@ -29,7 +29,7 @@ public class Main {
             switch (option) {
 
                 // Registration
-                case "1" -> {
+                case "1": {
                     System.out.println("-- REGISTRATION --");
 
                     System.out.println("Enter your username:");
@@ -50,10 +50,11 @@ public class Main {
                     } else {
                         System.out.println("Please try again!");
                     }
+                    break;
                 }
 
                 // Login
-                case "2" -> {
+                case "2": {
                     System.out.println("-- LOGIN --");
 
                     try {
@@ -96,15 +97,17 @@ public class Main {
                     } catch (InterruptedException e) {
                         System.err.println("Interrupted exception!");
                     }
+                    break;
                 }
 
                 // Logout
-                case "0" -> {
+                case "0": {
                     isStop = true;
                     System.out.println("Goodbye, see you again!");
+                    break;
                 }
 
-                default -> System.out.println("Invalid option");
+                default: System.out.println("Invalid option");
             }
         }
     }

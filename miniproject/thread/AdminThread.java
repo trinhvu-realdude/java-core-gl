@@ -39,7 +39,7 @@ public class AdminThread {
             switch (option) {
 
                 // Display all bills today
-                case "1" -> {
+                case "1": {
                     System.out.println("-- DISPLAY ALL BILLS TODAY --");
 
                     HashMap<Integer, Bill> bills = orderService.getBillsByDate(today);
@@ -59,10 +59,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Display total sale of this month
-                case "2" -> {
+                case "2": {
                     System.out.println("-- TOTAL SALE --");
 
                     Date date = new Date();
@@ -74,24 +75,28 @@ public class AdminThread {
                     System.out.println("Total sale of this month: $" + totalSale);
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Item management
-                case "3" -> {
+                case "3": {
                     menuItem();
+                    break;
                 }
 
                 // Menu management
-                case "4" -> {
+                case "4": {
                     menu();
+                    break;
                 }
 
-                case "0" -> {
+                case "0": {
                     isStop = true;
                     System.out.println("Logout successfully!");
+                    break;
                 }
 
-                default -> System.out.println("Invalid input!");
+                default: System.out.println("Invalid input!");
             }
         }
     };
@@ -115,7 +120,7 @@ public class AdminThread {
             switch (option) {
 
                 // Search item
-                case "1" -> {
+                case "1": {
                     System.out.println("-- SEARCH ITEM --");
 
                     System.out.println("Please enter the item name you want to search:");
@@ -132,10 +137,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Add item
-                case "2" -> {
+                case "2": {
                     System.out.println("-- ADD ITEM --");
 
                     try {
@@ -157,10 +163,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Update item
-                case "3" -> {
+                case "3": {
                     System.out.println("-- UPDATE ITEM --");
 
                     List<Item> items = itemService.getAllItems();
@@ -201,10 +208,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Delete item
-                case "4" -> {
+                case "4": {
                     System.out.println("-- DELETE ITEM --");
 
                     List<Item> items = itemService.getAllItems();
@@ -245,13 +253,15 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
-                case "0" -> {
+                case "0": {
                     isStop = true;
+                    break;
                 }
 
-                default -> System.out.println("Invalid input!");
+                default: System.out.println("Invalid input!");
             }
         }
     }
@@ -276,7 +286,7 @@ public class AdminThread {
             switch (option) {
 
                 // Display all menus
-                case "1" -> {
+                case "1": {
                     System.out.println("-- DISPLAY MENU --");
 
                     HashMap<Integer, Menu> menus = menuService.getAllMenus();
@@ -289,10 +299,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Create new menu
-                case "2" -> {
+                case "2": {
                     System.out.println("-- CREATE MENU --");
 
                     List<Item> items = itemService.getAllItems();
@@ -346,10 +357,11 @@ public class AdminThread {
                         System.err.println("Please enter the right format of input!");
                     }
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Update menu
-                case "3" -> {
+                case "3": {
                     System.out.println("-- UPDATE MENU --");
 
                     HashMap<Integer, Menu> menus = menuService.getAllMenus();
@@ -410,10 +422,11 @@ public class AdminThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Delete menu
-                case "4" -> {
+                case "4": {
                     System.out.println("-- DELETE MENU --");
 
                     HashMap<Integer, Menu> menus = menuService.getAllMenus();
@@ -449,13 +462,15 @@ public class AdminThread {
 
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
-                case "0" -> {
+                case "0": {
                     isStop = true;
+                    break;
                 }
 
-                default -> System.out.println("Invalid input!");
+                default: System.out.println("Invalid input!");
             }
         }
     }

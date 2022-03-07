@@ -34,7 +34,7 @@ public class Main {
                 switch (option) {
 
                     // Register
-                    case "1" -> {
+                    case "1": {
                         System.out.println("-- REGISTER --");
 
                         System.out.println("Enter your username: ");
@@ -50,10 +50,11 @@ public class Main {
                         log.saveRegisterLog(user.getUserName());
 
                         System.out.println("-- *-*-*-*-* --");
+                        break;
                     }
 
                     // Login
-                    case "2" -> {
+                    case "2": {
                         System.out.println("-- LOGIN --");
 
                         // Create new thread for user
@@ -62,16 +63,18 @@ public class Main {
                         u.setName("user");
                         u.start();
                         u.join();
+                        break;
                     }
 
                     // Exit
-                    case "0" -> {
+                    case "0": {
                         log.saveCloseLog();
                         isStop = true;
                         System.out.println("Goodbye, see you later!");
+                        break;
                     }
 
-                    default -> {
+                    default: {
                         log.saveErrorLog("Invalid input");
                         System.out.println("Invalid option");
                     }

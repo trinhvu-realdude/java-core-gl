@@ -41,7 +41,7 @@ public class CustomerThread {
             switch (option) {
 
                 // Display all items available
-                case "1" -> {
+                case "1": {
                     System.out.println("-- LIST OF ITEMS --");
                     List<Item> items = itemService.getAllItems();
 
@@ -50,10 +50,11 @@ public class CustomerThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Search the item
-                case "2" -> {
+                case "2": {
                     System.out.println("-- SEARCH ITEM --");
 
                     System.out.println("Please enter the item name you want to search:");
@@ -70,10 +71,11 @@ public class CustomerThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Create an order
-                case "3" -> {
+                case "3": {
                     System.out.println("-- CREATE AN ORDER --");
 
                     List<Item> items = itemService.getAllItems();
@@ -143,10 +145,11 @@ public class CustomerThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
                 // Display your bill
-                case "4" -> {
+                case "4": {
                     System.out.println("-- DISPLAY BILLS --");
                     HashMap<Integer, Bill> bills = orderService.getBillByUserId(user.getId());
 
@@ -161,9 +164,10 @@ public class CustomerThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
-                case "5" -> {
+                case "5": {
                     System.out.println("-- DISPLAY MENU --");
 
                     HashMap<Integer, Menu> menus = menuService.getAllMenus();
@@ -176,14 +180,16 @@ public class CustomerThread {
                     }
 
                     System.out.println("-- *-*-*-*-* --");
+                    break;
                 }
 
-                case "0" -> {
+                case "0": {
                     isStop = true;
                     System.out.println("Logout successfully!");
+                    break;
                 }
 
-                default -> System.out.println("Invalid option");
+                default: System.out.println("Invalid option");
             }
         }
     };
